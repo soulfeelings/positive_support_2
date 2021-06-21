@@ -1,5 +1,5 @@
 import React from 'react';
-import './BotTransfer.css'
+// import './BotTransfer.css'
 
 function BotTransferPage(props) {
   function handleClicK() {

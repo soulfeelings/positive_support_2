@@ -1,5 +1,6 @@
 import './App.css';
 import Circles from './Circles/Circles'
+import Profile from './Profile/Profile'
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 import BotTransferPage from './BotTransfer.page/BotTransferPage'
 
@@ -14,6 +15,9 @@ function App() {
       </Route>
       <Route path="/transfer">
         <BotTransferPage />
+      </Route>
+        <Route path="/profile">
+        <Profile />
       </Route>
 
 
