@@ -10,54 +10,16 @@ import {
 } from './texts.js';
 import Circle from '../models/circle.model.js';
 import User from '../models/user.model.js';
-import arrayShuffle from 'array-shuffle';
+import { krugovert } from './krugovert.js';
+import { linkgenerator } from '../middleware/linkgenerator.js'
+
 
 const token = process.env.BOT_TOKEN;
 const bot = new TelegramBot(token, {
   polling: true,
 });
 
-// Фича круговорота
-
-// Circle.findOne({ name: 'common' })
-//   .populate('connected_users')
-//   .then((circle) => {
-//     const { connected_users } = circle;
-
-//     let last = null;
-//     (connected_users.length % 2)
-//       ? last = connected_users.pop()
-//       : last = null;
-    
-//     const middle = connected_users.length / 2;
-
-//     let firstArray = connected_users.slice(0, middle);
-//     let secondArray = connected_users.slice(middle, connected_users.length);
-    
-//     firstArray = arrayShuffle(firstArray);
-//     secondArray = arrayShuffle(secondArray);
-
-//     mailing(firstArray, secondArray);
-    
-//     const shuffleSecondArray = arrayShuffle(secondArray);
-
-//     mailing(shuffleSecondArray, firstArray);
-
-//     if(last) {
-//       const randomperson = shuffleSecondArray.pop();
-//       bot.sendMessage(last.chatId, `Поддержи сегодня: ${randomperson.firstName} ${randomperson.lastName}, вот его телеграм - @${randomperson.name}`);
-//       bot.sendMessage(randomperson.chatId, `Поддержи сегодня пожалуйста еще одного человека: ${last.firstName} ${last.lastName}, вот его телеграм - @${last.name}`)
-//     }
-    
-//   });
-
-// function mailing(from, to) {
-//   for (let i = 0; i < from.length; i++) {
-//     const person = from[i];
-//     const partner = to[i];
-//     bot.sendMessage(person.chatId, `Поддержи сегодня: ${partner.firstName} ${partner.lastName}, вот его телеграм - @${partner.name}`)
-//   }
-// }
+// krugovert(bot);
 
 bot.on('message', async (msg) => {
   const chatId = msg.chat.id;
@@ -67,7 +29,7 @@ bot.on('message', async (msg) => {
     case '/start':
       regUser(msg);
       break;
-    case '/Войти на сайт':
+    case 'Войти на сайт':
       giveMeLink(chatId);
       break;
     default:
@@ -108,8 +70,12 @@ bot.on('callback_query', async (query) => {
 
 async function giveMeLink(chatId) {
   const res = await linkgenerator(`${chatId}`);
-  await bot.sendMessage(id, `http://localhost:3000/profile/${res}`);
-  axios.post('http://localhost:4000/user', { id, secretId: res });
+  // При нормальной ссылке будет все хорошо, но пока не кликабельна
+  await bot.sendMessage(chatId, `<a href="http://localhost:3000/profile/${res}">http://localhost:3000/profile/${res}</a>`, {
+    parse_mode: 'HTML'
+  });
+  //'[inline URL](http://localhost:3000/profile/'+res+'/)'
+  axios.post('http://localhost:4000/user/login', { chatId, secretId: res });
 }
 
 async function regUser(msg) {
@@ -120,19 +86,18 @@ async function regUser(msg) {
     last_name: lastName,
   } = msg.chat;
 
-  let person_name = '';
+  if (!name) {
+    await sendTimoutMessage(1000, chatId, `В твоем телеграм аккаунте не заполнен username`)
+    await sendTimoutMessage(2000, chatId, `Вся логика программы построена на этом`)
+    await sendTimoutMessage(500, chatId, `Заполни его, пожалуйста, в настройках и возвращайся`)
+    return;
+  } 
 
-  if (name) {
-    person_name = name;
-  } else if (firstName) {
-    person_name = firstName;
-  }
-
-  sendTimoutMessage(0, chatId, `Привет, ${person_name}!`);
-  sendTimoutMessage(700, chatId, `Секунду, пытаюсь Вас зарегистрировать.`);
+  await sendTimoutMessage(0, chatId, `Привет, ${name}!`);
+  await sendTimoutMessage(700, chatId, `Секунду, пытаюсь Вас зарегистрировать.`);
 
   axios
-    .post('http://localhost:4000/', {
+    .post('http://localhost:4000/user/create', {
       name,
       firstName,
       lastName,
@@ -142,7 +107,7 @@ async function regUser(msg) {
       await sendTimoutMessage(
         2000,
         chatId,
-        `${person_name} вы ${res.data.message}!`
+        `${name} вы ${res.data.message}!`
       );
       await sendTimoutMessage(2000, chatId, commontext, {
         reply_markup: {
