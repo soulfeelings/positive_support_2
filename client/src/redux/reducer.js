@@ -1,7 +1,7 @@
 import { INIT_CIRCLES } from "./actiontypes";
 
 const initialState = {
-  users: [],
+  circles: [],
 };
 
 function reducer(state = initialState, action) {
@@ -10,7 +10,7 @@ function reducer(state = initialState, action) {
       console.log("init", action.payload.data.data);
       return {
         ...state,
-        users: action.payload.data.data,
+        circles: action.payload.data.data,
       };
 
     default:

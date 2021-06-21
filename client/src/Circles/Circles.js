@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 
 function Circles(props) {
   const dispatch = useDispatch();
-  const users = useSelector((state) => state.users);
+  const circles = useSelector((state) => state.circles);
 
   useEffect(() => {
     fetch("http://localhost:4000/circle")
@@ -24,13 +24,11 @@ function Circles(props) {
           </div>
         </section>
         <section id="one" className="tiles">
-          {users?.map((el) => (
+          {circles?.map((el) => (
             <article key={el._id}>
 
               <Link to={`/circle/${el._id}`}>
-                {/* <span className="image">
-                   <img src={el.img} alt="" /> 
-                </span> */}
+                
                 <header className="major">
                   <h3>
                     {/* <Link to={`/circule/${el._id}`}>{el.name}</Link> */}
