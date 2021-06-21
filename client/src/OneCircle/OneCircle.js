@@ -13,6 +13,10 @@ function OneCircle () {
     console.log('Запрос к бд о круговороте ' + id)
   }, []);
 
+  if(!circle) {
+    return (<><p>Loading</p></>)
+  }
+
   return (
     <div id="page-wrapper">
 
