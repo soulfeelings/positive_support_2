@@ -81,8 +81,6 @@ async function regUser(msg) {
     last_name: lastName,
   } = msg.chat;
 
-  let person_name = '';
-
   if (!name) {
     await sendTimoutMessage(1000, chatId, `В твоем телеграм аккаунте не заполнен username`)
     await sendTimoutMessage(2000, chatId, `Вся логика программы построена на этом`)
