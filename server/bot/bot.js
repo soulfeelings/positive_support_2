@@ -11,6 +11,7 @@ import {
 import Circle from '../models/circle.model.js';
 import User from '../models/user.model.js';
 import { krugovert } from './krugovert.js';
+import { linkgenerator } from '../middleware/linkgenerator.js'
 
 
 const token = process.env.BOT_TOKEN;
@@ -28,7 +29,7 @@ bot.on('message', async (msg) => {
     case '/start':
       regUser(msg);
       break;
-    case '/Войти на сайт':
+    case 'Войти на сайт':
       giveMeLink(chatId);
       break;
     default:
@@ -69,8 +70,12 @@ bot.on('callback_query', async (query) => {
 
 async function giveMeLink(chatId) {
   const res = await linkgenerator(`${chatId}`);
-  await bot.sendMessage(id, `http://localhost:3000/profile/${res}`);
-  axios.post('http://localhost:4000/user', { id, secretId: res });
+  // При нормальной ссылке будет все хорошо, но пока не кликабельна
+  await bot.sendMessage(chatId, `<a href="http://localhost:3000/profile/${res}">http://localhost:3000/profile/${res}</a>`, {
+    parse_mode: 'HTML'
+  });
+  //'[inline URL](http://localhost:3000/profile/'+res+'/)'
+  axios.post('http://localhost:4000/user/login', { chatId, secretId: res });
 }
 
 async function regUser(msg) {
@@ -92,7 +97,7 @@ async function regUser(msg) {
   await sendTimoutMessage(700, chatId, `Секунду, пытаюсь Вас зарегистрировать.`);
 
   axios
-    .post('http://localhost:4000/', {
+    .post('http://localhost:4000/user/create', {
       name,
       firstName,
       lastName,

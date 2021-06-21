@@ -15,7 +15,7 @@ function Circles(props) {
   
   return (
     <div>
-      <div id="main">
+      <div id="main" style={{position: "unset"}}>
         <section id="banner" className="major">
           <div className="inner">
             <header className="major">

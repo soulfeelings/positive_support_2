@@ -12,7 +12,7 @@ function Profile(props) {
 
   useEffect(() => {
     authFunction(secretId, dispatch)
-      history.push('/circule')
+      history.push('/')
   }, [secretId, dispatch]);
 
   return (

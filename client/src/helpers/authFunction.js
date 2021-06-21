@@ -3,7 +3,9 @@ import { setUserAC } from '../redux/actionCreators/userActionCreators';
 
 
 export const authFunction = (secretId, dispatch) => {
+  
   if (secretId) {
+    
     axios
       .post('http://localhost:4000/user/auth', { secretId })
       .then((res) => dispatch(setUserAC(res.data)))

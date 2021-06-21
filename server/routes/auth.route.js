@@ -16,9 +16,10 @@ authRouter.post('/create', async (req, res) => {
 });
 
 authRouter.post('/login', async (req, res) => {
+  
   try {
     const user = await User.findOneAndUpdate(
-      { chatId: req.body.id },
+      { chatId: req.body.chatId },
       { $set: { secretId: req.body.secretId } },
     );
   } catch (error) {
@@ -30,7 +31,6 @@ authRouter.get('/auth', authMiddleware,  async (req, res) => {
   try {
     const user = await User.findById(req.user.id)
     const token = await jwt.sign({ id: user.id }, process.env.SC, { expiresIn: '1h' });
-    console.log(user, token);
     res.status(200).send({ user, token });
   } catch (error) {
     console.log(error);

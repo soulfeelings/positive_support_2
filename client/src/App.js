@@ -1,37 +1,39 @@
 import './App.css';
-import axios from 'axios'
+import axios from 'axios';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import Circles from './Circles/Circles';
 import Profile from './Profile/Profile';
 import { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
-import { setUserAC } from './redux/actionCreators/userActionCreators';
+import { useDispatch, useSelector } from 'react-redux';
+import { setUserAC, setUserUnauthorized } from './redux/actionCreators/userActionCreators';
+import BotTransferPage from './BotTransfer.page/BotTransferPage';
 
 function App() {
   const dispatch = useDispatch();
+  const status = useSelector((state) => state.currentUser.status);
 
   useEffect(() => {
-    // axios
-    //   .get('http://localhost:4000/circles')
-    //   .then((data) => dispatch(initCirculesAC(data.data.data)));
-
-    setTimeout(() => {
       axios
         .get('http://localhost:4000/user/auth', {
           headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
         })
         .then((res) => dispatch(setUserAC(res.data)))
-        .catch((err) => alert('Пожалйста, автовизируйтесь снова.', err));
-    }, 500);
+        .catch((err) => dispatch(setUserUnauthorized()));
   }, [dispatch]);
 
   return (
     <BrowserRouter>
-      <Switch>
-        <Route path="/circule" component={<Circles />} />
-        <Route path="/profile/:secretId" children={<Profile />} />
-      </Switch>
-      <Circles />
+      {status ? (
+        <BotTransferPage />
+      ) : (
+        <>
+          <Switch>
+            <Route path="/" children={<Circles />} exact />
+            <Route path="/circule" children={<Circles />} />
+            <Route path="/profile/:secretId" children={<Profile />} />
+          </Switch>
+        </>
+      )}
     </BrowserRouter>
   );
 }
