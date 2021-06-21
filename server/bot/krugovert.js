@@ -9,10 +9,7 @@ export function krugovert(bot) {
     .then((circle) => {
       const { connected_users } = circle;
 
-      let last = null;
-      (connected_users.length % 2)
-        ? last = connected_users.pop()
-        : last = null;
+      const last = checkForLeftOver(connected_users);
       
       const middle = connected_users.length / 2;
 
@@ -21,11 +18,10 @@ export function krugovert(bot) {
       
       firstArray = arrayShuffle(firstArray);
       secondArray = arrayShuffle(secondArray);
-
-      mailing(firstArray, secondArray);
       
       const shuffleSecondArray = arrayShuffle(secondArray);
 
+      mailing(firstArray, secondArray);
       mailing(shuffleSecondArray, firstArray);
 
 
@@ -39,6 +35,10 @@ export function krugovert(bot) {
       }
       
     });
+
+  function checkForLeftOver(connected_users) {
+    return (connected_users.length % 2) ? connected_users.pop(): null;
+  }
 
   function mailing(from, to) {
     for (let i = 0; i < from.length; i++) {

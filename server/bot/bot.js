@@ -83,14 +83,15 @@ async function regUser(msg) {
 
   let person_name = '';
 
-  if (name) {
-    person_name = name;
-  } else if (firstName) {
-    person_name = firstName;
-  }
+  if (!name) {
+    await sendTimoutMessage(1000, chatId, `В твоем телеграм аккаунте не заполнен username`)
+    await sendTimoutMessage(2000, chatId, `Вся логика программы построена на этом`)
+    await sendTimoutMessage(500, chatId, `Заполни его, пожалуйста, в настройках и возвращайся`)
+    return;
+  } 
 
-  sendTimoutMessage(0, chatId, `Привет, ${person_name}!`);
-  sendTimoutMessage(700, chatId, `Секунду, пытаюсь Вас зарегистрировать.`);
+  await sendTimoutMessage(0, chatId, `Привет, ${name}!`);
+  await sendTimoutMessage(700, chatId, `Секунду, пытаюсь Вас зарегистрировать.`);
 
   axios
     .post('http://localhost:4000/', {
@@ -103,7 +104,7 @@ async function regUser(msg) {
       await sendTimoutMessage(
         2000,
         chatId,
-        `${person_name} вы ${res.data.message}!`
+        `${name} вы ${res.data.message}!`
       );
       await sendTimoutMessage(2000, chatId, commontext, {
         reply_markup: {
