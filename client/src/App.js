@@ -4,14 +4,14 @@ import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import Circles from './Circles/Circles';
 import Profile from './Profile/Profile';
 import { useEffect } from 'react';
-import { useHistory } from 'react-router';
 import { useDispatch, useSelector } from 'react-redux';
 import { setUserAC, setUserUnauthorized } from './redux/actionCreators/userActionCreators';
+import BotTransferPage from './BotTransfer.page/BotTransferPage'
 
 function App() {
   const dispatch = useDispatch();
   const currentUser = useSelector((state) => state.currentUser)
-  const history = useHistory();
+
 
   useEffect(() => {
     // axios
@@ -30,23 +30,22 @@ function App() {
 
 
   if(Object.values(currentUser).length === 0) {
-    return (<></>);
+    return (<>123</>);
   }
   
-  console.log(currentUser);
   if(currentUser.status === 'unauthorized') {
-    console.log(1);
-    return (<>123</>);
+    return (<BotTransferPage />);
   }
 
   return (
     <BrowserRouter>
       <Switch>
-        <Route path="/circule" component={<Circles />} />
+        <Route path="/circule">
+          <Circles />
+        </Route>
         <Route path="/error">123</Route>
         <Route path="/profile/:secretId" children={<Profile />} />
       </Switch>
-      {/* <Circles /> */}
     </BrowserRouter>
   );
 }
