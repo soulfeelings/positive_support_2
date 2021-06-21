@@ -1,7 +1,7 @@
 import http from 'http';
 import dotenv from './utils/dotenv.js';
 import app from './app.js';
-import bot from './bot/bot.js';
+// import bot from './bot/bot.js';
 
 
 const PORT = process.env.PORT || 4000;

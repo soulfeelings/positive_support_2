@@ -7,6 +7,7 @@ import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { setUserAC, setUserUnauthorized } from './redux/actionCreators/userActionCreators';
 import BotTransferPage from './BotTransfer.page/BotTransferPage';
+import OneCircle from './OneCircle/OneCircle';
 
 function App() {
   const dispatch = useDispatch();
@@ -30,6 +31,7 @@ function App() {
           <Switch>
             <Route path="/" children={<Circles />} exact />
             <Route path="/circule" children={<Circles />} />
+            <Route path="/circle/:id" children={<OneCircle />} />
             <Route path="/profile/:secretId" children={<Profile />} />
           </Switch>
         </>
