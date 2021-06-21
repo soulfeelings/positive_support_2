@@ -11,7 +11,7 @@ app.use(cors());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
-app.use(circlesRouter);
+app.use('/circle', circlesRouter);
 
 
 export default app;

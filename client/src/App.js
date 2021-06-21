@@ -1,8 +1,12 @@
 import './App.css';
+import Circles from './Circles/Circles';
+import { BrowserRouter, Switch, Route } from 'react-router-dom';
 
 function App() {
   return (
-    1232332
+    <BrowserRouter>
+      <Circles />
+    </BrowserRouter>
   );
 }
 
