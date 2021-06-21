@@ -11,7 +11,7 @@ function Circles(props) {
     fetch("http://localhost:4000/circle")
       .then((res) => res.json())
       .then((data) => dispatch({ type: "INIT_CIRCLES", payload: { data } }));
-  }, []);
+  }, [dispatch]);
   
   return (
     <div>

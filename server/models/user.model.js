@@ -7,6 +7,7 @@ const User = mongoose.model('User', {
   isBan: { type: Boolean, default: false },
   chatId: { type: Number },
   secretId: {type: String},
+  connected_circles: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Circle' }],
 });
 
 export default User;
