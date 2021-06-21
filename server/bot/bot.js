@@ -1,0 +1,120 @@
+import TelegramBot from 'node-telegram-bot-api';
+import axios from 'axios';
+import { commonkeyboard } from './keyboards.js';
+import { commontext, errorcallback, letsgotosite, nocommand, youaddedtocommon } from './texts.js';
+import Circle from '../models/circle.model.js';
+import User from '../models/user.model.js';
+
+const token = process.env.BOT_TOKEN;
+const bot = new TelegramBot(token, {
+  polling: true,
+});
+
+bot.on('message', async (msg) => {
+  const chatId = msg.chat.id;
+  const { text } = msg;
+
+  switch (text) {
+    case '/start':
+      regUser(msg);
+      break;
+    case '/Войти на сайт':
+      giveMeLink(chatId);
+      break;
+    default:
+      bot.sendMessage(id, nocommand);
+  }
+
+});
+
+
+bot.on('callback_query', async (query) => {
+  const { type, answer } = JSON.parse(query.data);
+  const { id } = query.from
+  
+  switch (type) {
+    // Ловим выбор вступать или нет в общий круговорот
+    case ('common'):
+      if(answer === 'yes') {
+        
+        try {
+          const user = await User.findOne({chatId: id});
+          const circle = await Circle.updateOne({name: 'common'}, {$addToSet: {connected_users: user._id}}).exec()
+          if(circle.n) {
+            bot.sendMessage(id, youaddedtocommon);
+          }
+        } catch (error) {
+          bot.sendMessage(id, "Какая-то ошибка с базой, типа " + error.message);
+          console.log(error);
+        }
+        
+        
+      } else if(answer === 'no') {
+        bot.sendMessage(id, letsgotosite);
+      }
+      break;
+    default: 
+      bot.sendMessage(id, errorcallback);
+      break;
+  }
+});
+
+
+
+
+async function giveMeLink(chatId) {
+  const res = await linkgenerator(`${chatId}`);
+  await bot.sendMessage(id, `http://localhost:3000/profile/${res}`);
+  axios.post('http://localhost:4000/user', { id, secretId: res });
+}
+
+async function regUser(msg) {
+  const {
+    id: chatId,
+    username: name,
+    first_name: firstName,
+    last_name: lastName,
+  } = msg.chat;
+
+  let person_name = '';
+
+  if (name) {
+    person_name = name;
+  } else if (firstName) {
+    person_name = firstName;
+  }
+
+  sendTimoutMessage(0, chatId, `Привет, ${person_name}!`);
+  sendTimoutMessage(700, chatId, `Секунду, пытаюсь Вас зарегистрировать.`);
+
+  axios
+    .post('http://localhost:4000/', {
+      name,
+      firstName,
+      lastName,
+      chatId,
+    })
+    .then( async (res) => {
+      await sendTimoutMessage(2000, chatId, `${person_name} вы ${res.data.message}!`)
+      await sendTimoutMessage(2000, chatId, commontext, {
+        reply_markup: {
+          inline_keyboard: commonkeyboard
+        }
+      })
+    })
+    .catch((err) => {
+      bot.sendMessage(chatId, "Какая-то ошибка " + err)
+    })
+}
+
+
+function sendTimoutMessage(timeout, chatId, msg, options = {}) {
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      bot.sendMessage(chatId, msg, options).then(() => resolve())
+    }, timeout);
+  })
+}
+
+
+export default bot;
