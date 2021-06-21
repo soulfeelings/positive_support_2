@@ -1,4 +1,4 @@
-import { INIT_CIRCLES, SET_USER } from './actiontypes';
+import { INIT_CIRCLES, SET_USER, UNAUTHORIZED_USER } from './actiontypes';
 
 const initialState = {
   circles: [],
@@ -19,6 +19,13 @@ function reducer(state = initialState, action) {
         ...state,
         currentUser: action.payload.user,
       };
+    case UNAUTHORIZED_USER:
+      return {
+        ...state,
+        currentUser: {
+          status: "unauthorized",
+        }
+      }
 
     default:
       return state;
