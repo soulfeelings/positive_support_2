@@ -56,6 +56,8 @@ bot.on('callback_query', async (query) => {
         addUserToCommonGroup(id);
       } else if (answer === 'no') {
         bot.sendMessage(id, letsgotosite);
+        await sendTimoutMessage(1000, id, 'Лови ссылку');
+        giveMeLink(id);
       }
       break;
     default:
@@ -89,8 +91,9 @@ async function addUserToCommonGroup(id) {
 
     if (updatingCircle.n && updatingUser.n) {
       bot.sendMessage(id, youaddedtocommon);
+      sendTimoutMessage(1000, id, 'Поздравляю. Скоро тебя ждет первое взаимодействие в нашем сервисе. Тебе придет чей-то никнейм. Поддержи это человека. И также твой никнейм придет кому-то и тебя обязательно поддержат. До связи!')
     }
-    
+
   } catch (error) {
     bot.sendMessage(id, 'Какая-то ошибка с базой, типа ' + error.message);
     console.log(error);
