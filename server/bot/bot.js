@@ -23,6 +23,9 @@ bot.on('message', async (msg) => {
       bot.sendMessage(chatId, starttext, {parse_mode: 'MarkdownV2'});
       break;
     case '/reg':
+      if(await userExists(chatId)) {
+        return bot.sendMessage(chatId, 'А вы уже с нами:)');
+      }
       let userProfile = bot.getUserProfilePhotos(msg.from.id);
       userProfile.then(function (res) {
         let file_id = res.photos[0][0].file_id;
@@ -72,6 +75,10 @@ bot.on('callback_query', async (query) => {
       break;
   }
 });
+
+async function userExists(chatId) {
+  return await User.findOne({chatId}).exec()
+}
 
 async function giveMeLink(chatId) {
   const res = await linkgenerator(`${chatId}`);
