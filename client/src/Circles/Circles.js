@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import insertStyles from "../helpers/insertStyles";
+import Navigation from "../Navigation/Navigation";
 import { circlesStyles } from "./styles";
 
 function Circles(props) {
@@ -55,6 +56,7 @@ function Circles(props) {
           ))}
         </section>
       </div>
+      {/* <Navigation name="Профиль" link="/profile"/> */}
     </div>
   );
 }

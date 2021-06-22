@@ -9,7 +9,6 @@ import { setUserAC, setUserUnauthorized } from './redux/actionCreators/userActio
 import BotTransferPage from './BotTransfer.page/BotTransferPage';
 import OneCircle from './OneCircle/OneCircle';
 import Circle from './Circle/Circle';
-import Navigation from './Navigation/Navigation';
 
 function App() {
   const dispatch = useDispatch();
@@ -38,16 +37,16 @@ function App() {
         <>
           <Switch>
             <Route path="/" children={<Circles />} exact />
-            <Route path="/circule" children={<Circles />} />
+            {/* <Route path="/circule" children={<Circles />} /> */}
             <Route path="/circle/:circleId" children={<OneCircle />} />
             {/* <Route path="/circule" children={<Circles /> } exact />*/}
-            <Route path="/circleOld/:circleId" children={<Circle /> } /> 
+            {/* <Route path="/circleOld/:circleId" children={<Circle /> } />  */}
             <Route path="/profile/:secretId" children={<Profile />} />
+            {/* <Route path="/profile" children={<Profile />} /> */}
 
             {/* Страница теста заглушки */}
             <Route path="/unauth" children={<BotTransferPage />} />
           </Switch>
-          <Navigation />
         </>
       )}
     </BrowserRouter>

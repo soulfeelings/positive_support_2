@@ -6,4 +6,11 @@
   min-height: 100px;
   right: 10px;
   top: 10px;
+  z-index: 100;
+
+  color: white;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
