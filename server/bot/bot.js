@@ -76,6 +76,7 @@ bot.on('callback_query', async (query) => {
   }
 });
 
+// По хорошему сделать статическим методом модели User
 async function userExists(chatId) {
   return await User.findOne({chatId}).exec()
 }
