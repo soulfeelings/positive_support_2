@@ -14,6 +14,12 @@ function Circles(props) {
     setStyled(true);
     return insertStyles(circlesStyles);
   }, [])
+
+  useEffect(() => {
+    fetch("http://localhost:4000/circle")
+      .then((res) => res.json())
+      .then((data) => dispatch({ type: "INIT_CIRCLES", payload: { data } }));
+  }, [dispatch]);
   
   if(!styled) {
     return (<>Loading</>);
@@ -41,7 +47,7 @@ function Circles(props) {
                     {el.name}
                   </h3>
 
-                  <p>количество участников {0}</p>
+                  <p>количество участников {el.connected_users?.length}</p>
                 </header>
               </Link>
 
