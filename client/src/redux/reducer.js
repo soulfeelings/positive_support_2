@@ -1,4 +1,4 @@
-import { INIT_CIRCLES, INIT_ONE_CIRCLE, SET_USER, UNAUTHORIZED_USER, UPDATE_STATE } from './actiontypes';
+import { INIT_ADMIN, INIT_CIRCLES, INIT_ONE_CIRCLE, SET_USER, UNAUTHORIZED_USER, UPDATE_STATE } from './actiontypes';
 
 const initialState = {
   circles: [],
@@ -33,11 +33,19 @@ function reducer(state = initialState, action) {
         currentCircle: action.payload
       }
 
-      case UPDATE_STATE:
+    case UPDATE_STATE:
         return {
           ...state,
           currentUser: action.payload.user,
           currentCircle: action.payload.circle
+        }
+    
+    case INIT_ADMIN: 
+    localStorage.setItem('token', action.payload.token);
+    console.log(action.payload)
+        return {
+          ...state,
+          currentUser: action.payload.admin
         }
 
     default:

@@ -17,7 +17,6 @@ const bot = new TelegramBot(token, {
 bot.on('message', async (msg) => {
   const chatId = msg.chat.id;
   const { text } = msg;
-
   switch (text) {
     case '/start':
       let userProfile = bot.getUserProfilePhotos(msg.from.id);
@@ -26,8 +25,8 @@ bot.on('message', async (msg) => {
         let file = bot.getFile(file_id);
         file.then(function (result) {
           let file_path = result.file_path;
-          let photo_url = `https://api.telegram.org/file/bot${token}/${file_path}`;  // получаем фото юзера из телеграма
-          regUser({ msg, photo_url });                                             // регистрируем пользователя
+          let photo_url = `https://api.telegram.org/file/bot${token}/${file_path}`; // получаем фото юзера из телеграма
+          regUser({ msg, photo_url }); // регистрируем пользователя
         });
       });
       break;
