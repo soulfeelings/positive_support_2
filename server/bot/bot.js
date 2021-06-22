@@ -53,19 +53,7 @@ bot.on('callback_query', async (query) => {
     // Ловим выбор вступать или нет в общий круговорот
     case 'common':
       if (answer === 'yes') {
-        try {
-          const user = await User.findOne({ chatId: id });
-          const circle = await Circle.updateOne(
-            { name: 'common' },
-            { $addToSet: { connected_users: user._id } },
-          ).exec();
-          if (circle.n) {
-            bot.sendMessage(id, youaddedtocommon);
-          }
-        } catch (error) {
-          bot.sendMessage(id, 'Какая-то ошибка с базой, типа ' + error.message);
-          console.log(error);
-        }
+        addUserToCommonGroup(id);
       } else if (answer === 'no') {
         bot.sendMessage(id, letsgotosite);
       }
@@ -75,6 +63,39 @@ bot.on('callback_query', async (query) => {
       break;
   }
 });
+
+async function addUserToCommonGroup(id) {
+  try {
+
+    const user = await userExists(id);
+    if(!user) {
+      return bot.sendMessage(id, 'Вам похоже надо зарегистрироваться')
+    }
+
+    const updatingCircle = await Circle.updateOne(
+      { name: 'Общее' },
+      { $addToSet: { connected_users: user._id } },
+    ).exec();
+    
+    const circle = await Circle.findOne({name: 'Общее'});
+    if(!circle) {
+      return bot.sendMessage(id, 'Почему-то нет общего сообщества с именем "Общее". Нужна помощь администратора')
+    }
+
+    const updatingUser = await User.updateOne(
+      { chatId: id },
+      { $addToSet: { connected_circles: circle._id } },
+    ).exec();
+
+    if (updatingCircle.n && updatingUser.n) {
+      bot.sendMessage(id, youaddedtocommon);
+    }
+    
+  } catch (error) {
+    bot.sendMessage(id, 'Какая-то ошибка с базой, типа ' + error.message);
+    console.log(error);
+  }
+}
 
 // По хорошему сделать статическим методом модели User
 async function userExists(chatId) {
