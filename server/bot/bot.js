@@ -85,7 +85,6 @@ async function giveMeLink(chatId) {
 }
 
 async function regUser({ msg, photo_url }) {
-  console.log(photo_url, '123345');
   const { id: chatId, username: name, first_name: firstName, last_name: lastName } = msg.chat;
 
   if (!name) {
