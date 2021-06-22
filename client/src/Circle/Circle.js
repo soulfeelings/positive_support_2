@@ -5,6 +5,7 @@ import axios from 'axios';
 import { useParams } from 'react-router';
 import { initOneCircleAC } from '../redux/actionCreators/circleAC';
 import { updateStateAC } from '../redux/actionCreators/updateStateAC';
+import { getFaces } from '../helpers/getFaces';
 
 function Circle(props) {
   const circleId = useParams();
@@ -15,7 +16,8 @@ function Circle(props) {
   const [users, setUsers] = useState();
 
   useEffect(() => {
-    setUsers([{}, {}, {}, {}, {}, {}, {}, {}, {}, {}]); //переписать
+    getFaces().then(res => setUsers(res))
+
     axios
       .post('http://localhost:4000/circle/getCurrent', circleId)
       .then((res) => dispatch(initOneCircleAC(res.data)))
@@ -25,8 +27,6 @@ function Circle(props) {
           : setIsInCircle(false),
       );
   }, [dispatch, currentUser, circleId]);
-
-  console.log(currentCircle?.connected_users);
 
   const followHandler = (e) => {
     e.preventDefault();
@@ -83,7 +83,7 @@ function Circle(props) {
                   <img
                     alt=""
                     className="square"
-                    src="https://wl-adme.cf.tsp.li/resize/728x/jpg/d8f/395/cf4c0d577d815b936cc1fb36db.jpg"
+                    src={el}
                   />
                 </div>
               </div>
