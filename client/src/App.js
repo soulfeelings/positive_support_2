@@ -9,6 +9,7 @@ import { setUserAC, setUserUnauthorized } from './redux/actionCreators/userActio
 import BotTransferPage from './BotTransfer.page/BotTransferPage';
 import OneCircle from './OneCircle/OneCircle';
 import Circle from './Circle/Circle';
+import Navigation from './Navigation/Navigation';
 
 function App() {
   const dispatch = useDispatch();
@@ -46,6 +47,7 @@ function App() {
             {/* Страница теста заглушки */}
             <Route path="/unauth" children={<BotTransferPage />} />
           </Switch>
+          <Navigation />
         </>
       )}
     </BrowserRouter>

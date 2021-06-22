@@ -1,0 +1,9 @@
+.navWrapper {
+  position: absolute;
+  border-radius: 50px;
+  background: black;
+  min-width: 100px;
+  min-height: 100px;
+  right: 10px;
+  top: 10px;
+}
