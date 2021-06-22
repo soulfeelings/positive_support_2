@@ -4,4 +4,5 @@ export const UNAUTHORIZED_USER = "UNAUTHORIZED_USER"
 export const INIT_ONE_CIRCLE = "INIT_ONE_CIRCLE"
 export const UPDATE_STATE= "UPDATE_STATE"
 export const INIT_ADMIN="INIT_ADMIN"
+export const ADD_CIRCLE="ADD_CIRCLE"
 

@@ -1,8 +1,22 @@
 import { Router } from 'express';
+import multer from 'multer';
+import path from 'path';
 import Circle from '../models/circle.model.js';
 import User from '../models/user.model.js';
 
 const circlesRouter = Router();
+
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, 'public/files');
+  },
+  filename: function (req, file, cb) {
+    cb(null, Date.now() + path.extname(file.originalname));
+  },
+});
+
+const upload = multer({ storage: storage });
+
 
 circlesRouter.route('/')
   .get((req, res) => {
@@ -43,6 +57,22 @@ circlesRouter.route('/getCurrent')
   .post(async (req, res) => {
     const circle = await Circle.findById(req.body.circleId);
     res.status(201).send(circle)
+  })
+
+circlesRouter.route('/delete/:id')
+  .delete(async (req, res) => {
+    const circle = await Circle.findByIdAndDelete(req.params.id);
+    res.status(201).json(circle)
+  })
+
+circlesRouter.route('/add') 
+  .post(upload.single('file'), async (req, res, next) => {
+    console.log(req.body.name);
+    const newCircle = await Circle.create({
+      name: req.body.name,
+      img: req.file.path
+    });
+    res.status(201).send(newCircle)
   })
 
 export default circlesRouter;

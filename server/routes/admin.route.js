@@ -14,7 +14,7 @@ authRouter.post('/login', async (req, res) => {
     console.log(admin);
     if (admin.password === req.body.password) {
       const token = await jwt.sign({ id: admin._id }, process.env.SC, { expiresIn: '1h' });
-      res.status(200).send({admin: admin.name, token});
+      res.status(200).send({admin: {status: "admin"}, token});
     } else {
       res.status(403).send({admin: false});
     }
