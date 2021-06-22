@@ -39,6 +39,9 @@ function App() {
             <Route path="/circule" children={<Circles />} />
             <Route path="/circle/:id" children={<OneCircle />} />
             <Route path="/profile/:secretId" children={<Profile />} />
+
+            {/* Страница теста заглушки */}
+            <Route path="/unauth" children={<BotTransferPage />} />
           </Switch>
         </>
       )}

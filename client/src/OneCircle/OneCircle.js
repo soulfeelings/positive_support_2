@@ -1,12 +1,16 @@
 import React, { useEffect } from 'react';
 import { useParams } from 'react-router';
 import { useSelector } from 'react-redux';
-import './OneCircle.css'
+import insertStyles from '../helpers/insertStyles';
+import { oneCircleStyles } from './OneCircleStyles';
+// import './OneCircle.css'
 
 function OneCircle () {
   const {id} = useParams();
   const circle = useSelector((state) => state.circles.filter((c => c._id === id))[0]);
   console.log(circle);
+
+  useEffect(() => insertStyles(oneCircleStyles), []);
 
   useEffect(() => {
     document.body.classList.add('homepage')
@@ -25,7 +29,7 @@ function OneCircle () {
 							<header>
 								<h1><a href="index.html" id="logo">{circle.name}</a></h1>
 								<hr />
-								<p>Another fine freebie by HTML5 UP</p>
+								<p>Чтобы подключиться к круговороту - нажмите Start</p>
 							</header>
 							<footer>
 								<a href="#banner" className="button circled scrolly">Start</a>
@@ -35,10 +39,9 @@ function OneCircle () {
 
 				<section id="banner">
 					<header>
-						<h2>Hi. You're looking at <strong>Helios</strong>.</h2>
+						<h2>Круговорот <strong>Учеба</strong>.</h2>
 						<p>
-							A (free) responsive site template by <a href="http://html5up.net">HTML5 UP</a>.
-							Built with HTML5/CSS3 and released under the <a href="http://html5up.net/license">CCA</a> license.
+							Мы все с вами учились. И если вспомнить, то бывали времена, когда учеба дается сложно. В такие моменты очень хочется ощущать себя не одиноким, ощущать поддержку, которая придаст сил справится с трудностями. В этом круговороте мы поддерживаем друг друга, чтобы учиться в приподнятом настроении, легко справлятся со сложностями. Подключайтесь
 						</p>
 					</header>
 				</section>

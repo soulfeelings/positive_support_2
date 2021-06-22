@@ -1,14 +1,24 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import "./Circles.css";
 import { Link } from "react-router-dom";
+import insertStyles from "../helpers/insertStyles";
+import { circlesStyles } from "./styles";
 
 function Circles(props) {
   const dispatch = useDispatch();
   const circles = useSelector((state) => state.circles);
+  
+  const [styled, setStyled] = useState(false);
 
+  useEffect(() => {
+    setStyled(true);
+    return insertStyles(circlesStyles);
+  }, [])
   
-  
+  if(!styled) {
+    return (<>Loading</>);
+  }
+
   return (
     <div>
       <div id="main" style={{position: "unset"}}>
