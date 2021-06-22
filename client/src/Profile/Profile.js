@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useHistory, useParams } from 'react-router';
 import { authFunction } from '../helpers/authFunction';
 
+
 function Profile(props) {
 
   const dispatch = useDispatch();
@@ -16,10 +17,19 @@ function Profile(props) {
   }, [secretId, dispatch]);
 
   return (
-    <div>
-      ProfilePage
-    </div>
+
+<>
+
+
+				<h1>Eventually</h1>
+
+
+
+  </>
+
   );
 }
 
 export default Profile;
+
+

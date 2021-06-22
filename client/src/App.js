@@ -2,7 +2,7 @@ import './App.css';
 import axios from 'axios';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import Circles from './Circles/Circles';
-import Profile from './Profile/Profile';
+import Profile from '../src/Profile/Profile';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { setUserAC, setUserUnauthorized } from './redux/actionCreators/userActionCreators';
@@ -23,17 +23,19 @@ function App() {
 
   return (
     <BrowserRouter>
-      {status ? (
+      {/* {status ? (
         <BotTransferPage />
-      ) : (
+      ) : ( */}
         <>
           <Switch>
             <Route path="/" children={<Circles />} exact />
+            <Route path="/transfer" children={<BotTransferPage />} exact />
             <Route path="/circule" children={<Circles />} />
-            <Route path="/profile/:secretId" children={<Profile />} />
+               <Route path="/profile" children={<Profile />} />
+            {/* <Route path="/profile/:secretId" children={<Profile />} /> */}
           </Switch>
         </>
-      )}
+      {/* )} */}
     </BrowserRouter>
   );
 }
