@@ -8,6 +8,7 @@ const authRouter = Router();
 
 authRouter.post('/create', async (req, res) => {
   try {
+    console.log(req.body);
     const newUser = await User.create(req.body);
     await res.status(201).send({ message: 'успешно зарегистрированы' });
   } catch (error) {

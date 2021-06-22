@@ -6,7 +6,7 @@ const circlesRouter = Router();
 
 circlesRouter.route('/')
   .get((req, res) => {
-    Circle.find({})
+    Circle.find({}).populate('connected_users')
       .exec()
       .then((data) => res.json({ data }));
 });

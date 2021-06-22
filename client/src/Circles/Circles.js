@@ -35,7 +35,7 @@ function Circles(props) {
                     {el.name}
                   </h3>
 
-                  <p>количество участников {0}</p>
+                  <p>количество участников {el.connected_users?.length}</p>
                 </header>
               </Link>
 

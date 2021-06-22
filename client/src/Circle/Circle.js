@@ -26,6 +26,8 @@ function Circle(props) {
       );
   }, [dispatch, currentUser, circleId]);
 
+  console.log(currentCircle?.connected_users);
+
   const followHandler = (e) => {
     e.preventDefault();
     axios
