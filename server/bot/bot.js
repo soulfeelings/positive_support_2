@@ -1,7 +1,7 @@
 import TelegramBot from 'node-telegram-bot-api';
 import axios from 'axios';
 import { commonkeyboard } from './keyboards.js';
-import { commontext, errorcallback, letsgotosite, nocommand, youaddedtocommon } from './texts.js';
+import { commontext, errorcallback, letsgotosite, nocommand, starttext, youaddedtocommon } from './texts.js';
 import Circle from '../models/circle.model.js';
 import User from '../models/user.model.js';
 import { krugovert } from './krugovert.js';
@@ -20,6 +20,9 @@ bot.on('message', async (msg) => {
 
   switch (text) {
     case '/start':
+      bot.sendMessage(chatId, starttext, {parse_mode: 'MarkdownV2'});
+      break;
+    case '/reg':
       let userProfile = bot.getUserProfilePhotos(msg.from.id);
       userProfile.then(function (res) {
         let file_id = res.photos[0][0].file_id;

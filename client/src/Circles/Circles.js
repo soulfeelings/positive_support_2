@@ -31,7 +31,7 @@ function Circles(props) {
         <section id="banner" className="major">
           <div className="inner">
             <header className="major">
-              <h2>ВЫБЕРИТЕ ТЕМУ</h2>
+              <h2>ВЫБЕРИТЕ СООБЩЕСТВО</h2>
             </header>
           </div>
         </section>
