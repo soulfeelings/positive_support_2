@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import insertStyles from "../helpers/insertStyles";
 import Navigation from "../Navigation/Navigation";
+import PortalToBody from "../Navigation/Portal";
 import { circlesStyles } from "./styles";
 
 function Circles(props) {
@@ -44,7 +45,6 @@ function Circles(props) {
                 
                 <header className="major">
                   <h3>
-                    {/* <Link to={`/circule/${el._id}`}>{el.name}</Link> */}
                     {el.name}
                   </h3>
 
@@ -56,7 +56,9 @@ function Circles(props) {
           ))}
         </section>
       </div>
-      {/* <Navigation name="Профиль" link="/profile"/> */}
+      <PortalToBody>
+        <Navigation name="Профиль" link="/profile"/>
+      </PortalToBody>
     </div>
   );
 }

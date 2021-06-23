@@ -1,15 +1,13 @@
 .navWrapper {
-  position: absolute;
+  position: fixed;
   border-radius: 50px;
   background: black;
   min-width: 100px;
-  min-height: 100px;
+  padding: 15px 15px;
   right: 10px;
-  top: 10px;
+  bottom: 10px;
   z-index: 100;
-
   color: white;
-
   display: flex;
   justify-content: center;
   align-items: center;
