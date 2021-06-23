@@ -1,9 +1,8 @@
-import React, { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { useHistory, useParams } from 'react-router';
-import { authFunction } from '../helpers/authFunction';
+import React from 'react';
+import { useSelector } from 'react-redux';
 import Navigation from '../Navigation/Navigation';
 import PortalToBody from '../Navigation/Portal';
+import SituationForm from './SituationForm';
 
 function Profile(props) {
 
@@ -12,6 +11,8 @@ function Profile(props) {
   return (
     <div>
       ProfilePage {currentUser.name}
+      <br/>
+      <SituationForm />
       <PortalToBody>
         <Navigation name="На главную" link="/"/>
       </PortalToBody>

@@ -1,4 +1,13 @@
-import { INIT_CIRCLES, INIT_ONE_CIRCLE, SET_USER, UNAUTHORIZED_USER, UPDATE_STATE } from './actiontypes';
+import {
+  INIT_CIRCLES,
+  INIT_ONE_CIRCLE,
+  SET_USER,
+  UNAUTHORIZED_USER,
+  UPDATE_STATE,
+  REQUEST_UPDATE_SUTUATION,
+  REQUEST_UPDATE_SUTUATION_ERROR,
+  REQUEST_UPDATE_SUTUATION_SUCCESS,
+} from './actiontypes';
 
 const initialState = {
   circles: [],
@@ -23,22 +32,36 @@ function reducer(state = initialState, action) {
       return {
         ...state,
         currentUser: {
-          status: "unauthorized",
-        }
-      }
+          status: 'unauthorized',
+        },
+      };
 
     case INIT_ONE_CIRCLE:
       return {
         ...state,
-        currentCircle: action.payload
-      }
+        currentCircle: action.payload,
+      };
 
-      case UPDATE_STATE:
-        return {
-          ...state,
-          currentUser: action.payload.user,
-          currentCircle: action.payload.circle
-        }
+    case UPDATE_STATE:
+      return {
+        ...state,
+        currentUser: action.payload.user,
+        currentCircle: action.payload.circle,
+      };
+
+    // Ситуация пользователя
+    case REQUEST_UPDATE_SUTUATION:
+      return state;
+
+    case REQUEST_UPDATE_SUTUATION_SUCCESS:
+      return {
+        ...state,
+        currentUser: { ...state.currentUser, situation: action.payload },
+      };
+
+    case REQUEST_UPDATE_SUTUATION_ERROR:
+      console.log('Ошибка на сервере', action.payload);
+      return state;
 
     default:
       return state;
