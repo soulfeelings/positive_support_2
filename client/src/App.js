@@ -14,7 +14,7 @@ import ProfileCheck from './Profile/ProfileCheck';
 
 function App() {
   const dispatch = useDispatch();
-  const status = useSelector((state) => state.currentUser.status);
+  const currentUser = useSelector((state) => state.currentUser);
   
   useEffect(() => {
     const token = localStorage.getItem('token');
@@ -25,14 +25,14 @@ function App() {
         })
         .then((res) => dispatch(setUserAC(res.data)))
         .catch((err) => dispatch(setUserUnauthorized()));
-    } else {
-      dispatch(setUserUnauthorized());
-    }
+    } else {dispatch(setUserUnauthorized())}
   }, [dispatch])
 
   useEffect(() => {
-      
-  }, [dispatch]);
+      if (currentUser.isBan) {
+        alert('Вы не можете пользоваться приложением, потому что находитесь в стоп-листе. Если хотите продолжать - свяжитесь с администратором.')
+      }
+  }, [dispatch, currentUser]);
   
 
   useEffect(() => {
@@ -43,7 +43,7 @@ function App() {
 
   return (
     <BrowserRouter>
-      {status === "unauthorized"
+      {currentUser.status === "unauthorized" || currentUser.isBan
       ? <BotTransferPage /> 
       : 
         <>
