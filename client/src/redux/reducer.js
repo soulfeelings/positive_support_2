@@ -12,6 +12,7 @@ import {
   REQUEST_UPDATE_SUTUATION,
   REQUEST_UPDATE_SUTUATION_ERROR,
   REQUEST_UPDATE_SUTUATION_SUCCESS,
+  CIRCLE_GO_OUT,
 } from './actiontypes';
 
 const initialState = {
@@ -76,6 +77,21 @@ function reducer(state = initialState, action) {
           ...state,
           users: action.payload
         }
+    case CIRCLE_GO_OUT:
+      console.log(state.circles);
+      console.log(action.payload);
+      return {
+        ...state,
+        // circles: [...state.circles].filter(
+        //   (el) => el._id !== action.payload ),
+          currentUser: {
+            ...state.currentUser,
+            connected_circles: state.currentUser.connected_circles.filter(el=> el._id !== action.payload)
+          }
+
+      }
+
+
 
       case DELETE_CIRCLE: 
         return {

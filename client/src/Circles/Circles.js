@@ -9,7 +9,7 @@ import { circlesStyles } from "./styles";
 function Circles(props) {
   const dispatch = useDispatch();
   const circles = useSelector((state) => state.circles);
-  
+
   const [styled, setStyled] = useState(false);
 
   useEffect(() => {
@@ -22,7 +22,7 @@ function Circles(props) {
       .then((res) => res.json())
       .then((data) => dispatch({ type: "INIT_CIRCLES", payload: { data } }));
   }, [dispatch]);
-  
+
   if(!styled) {
     return (<>Loading</>);
   }
@@ -35,6 +35,7 @@ function Circles(props) {
             <header className="major">
               <h2>ВЫБЕРИТЕ СООБЩЕСТВО</h2>
             </header>
+
           </div>
         </section>
         <section id="one" className="tiles">
@@ -42,7 +43,7 @@ function Circles(props) {
             <article key={el._id}>
 
               <Link to={`/circle/${el._id}`}>
-                
+
                 <header className="major">
                   <h3>
                     {el.name}

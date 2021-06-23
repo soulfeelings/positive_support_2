@@ -7,7 +7,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { setUserAC, setUserUnauthorized } from './redux/actionCreators/userActionCreators';
 import BotTransferPage from './BotTransfer.page/BotTransferPage';
 import OneCircle from './OneCircle/OneCircle';
-import Circle from './Circle/Circle';
 import AdminPage from './Admin/AdminPage';
 import Profile from './Profile/Profile';
 import ProfileCheck from './Profile/ProfileCheck';
@@ -17,8 +16,8 @@ function App() {
   const status = useSelector((state) => state.currentUser.status);
   
   useEffect(() => {
-    const token = localStorage.getItem('token');
-    if(token) {
+    const token = localStorage.getItem("token");
+    if (token) {
       axios
         .get('http://localhost:4000/user/auth', {
           headers: { Authorization: `Bearer ${token}` },
@@ -28,12 +27,10 @@ function App() {
     } else {
       dispatch(setUserUnauthorized());
     }
-  }, [dispatch])
-
-  useEffect(() => {
-      
   }, [dispatch]);
   
+
+  useEffect(() => {}, [dispatch]);
 
   useEffect(() => {
     fetch('http://localhost:4000/circle')
