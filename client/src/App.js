@@ -43,7 +43,6 @@ function App() {
 
   return (
     <BrowserRouter>
-<<<<<<< HEAD
       {status === "unauthorized"
       ? <BotTransferPage /> 
       : 
@@ -62,23 +61,6 @@ function App() {
             <Route path="/unauth" children={<BotTransferPage />} />
           </Switch>
         </>
-=======
-      {status === "unauthorized" 
-        ? <BotTransferPage /> 
-        :
-          <>
-            <Switch>
-              <Route path="/" children={<Circles />} exact />
-              <Route path="/circule" children={<Circles />} />
-              <Route path="/circle/:circleId" children={<OneCircle />} />
-              <Route path="/admin" children={<AdminPage />}  />
-              <Route path="/circleOld/:circleId" children={<Circle />} />
-              <Route path="/profile/:secretId" children={<Profile />} />
-              {/* Страница теста заглушки */}
-              <Route path="/unauth" children={<BotTransferPage />}/>
-            </Switch>
-          </>
->>>>>>> 2956a7418292c5dc189fa0b97182f2f0203c2e33
       }
     </BrowserRouter>
   );

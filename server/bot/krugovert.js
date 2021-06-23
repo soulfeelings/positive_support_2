@@ -71,8 +71,8 @@ export async function krugovert(bot, name) {
       const person = from[i];
       const partner = to[i];
       bot.sendMessage(
-        person?.chatId,
-        `Поддержи сегодня: ${partner?.firstName} ${partner?.lastName}, вот его телеграм - @${partner?.name}`,
+        person.chatId,
+        `Поддержи сегодня: ${partner.firstName} ${partner.lastName}, вот его телеграм - @${partner.name}`,
       );
     }
   }
