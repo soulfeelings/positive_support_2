@@ -12,9 +12,7 @@ import PortalToBody from '../Navigation/Portal';
 import Navigation from '../Navigation/Navigation';
 
 function OneCircle() {
-  // const {id} = useParams();
-  // const circle = useSelector((state) => state.circles.filter((c => c._id === id))[0]);
-  // console.log(circle);
+  const buttonStyle = {padding: "0 20px"}
 
   const circleId = useParams();
   const dispatch = useDispatch();
@@ -81,24 +79,26 @@ function OneCircle() {
               </a>
             </h1>
             <hr />
-            <p>Чтобы подключиться к круговороту - нажмите Start</p>
+            <p>Чтобы подключиться к круговороту - нажмите кнопку</p>
           </header>
           <footer>
             {!isInCircle ? (
               <a
+                style={buttonStyle}
                 href="#banner"
                 className="button circled scrolly"
                 onClick={followHandler}
               >
-                Start
+                Подключиться
               </a>
             ) : (
               <a
+                style={buttonStyle}
                 href="#banner"
                 className="button circled scrolly"
                 onClick={unfollowHandler}
               >
-                Stop
+                Отключиться
               </a>
             )}
           </footer>

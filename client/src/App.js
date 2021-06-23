@@ -48,6 +48,7 @@ function App() {
       : 
         <>
           <Switch>
+            
             <Route path="/" children={<Circles />} exact />
 
             <Route path="/circle/:circleId" children={<OneCircle />} />
@@ -55,7 +56,7 @@ function App() {
             <Route path="/profile" children={<Profile />} exact />
             <Route path="/profile/:secretId" children={<ProfileCheck />} />
 
-            <Route path="/admin" children={<AdminPage />} exact />
+            <Route path="/admin" children={<AdminPage />}  />
 
             <Route path="/unauth" children={<BotTransferPage />} />
           </Switch>

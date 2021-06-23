@@ -11,7 +11,7 @@ function AdminPage() {
 
   useEffect(() => {
     if (user.admin === false) {
-      alert('Вы не являетесь админимтстратором!');
+      alert('Вы не являетесь администратором!');
       history.push('/');
     }
   }, [user]);
@@ -19,8 +19,8 @@ function AdminPage() {
   return (
     <>
       <Switch>
-        <Route path="/admin/circles" children={<AdminCircles />} />
-        <Route path="/admin/users" children={<AdminUsers />} />
+        <Route path="/admin/circles" children={<AdminCircles />}/>
+        <Route path="/admin/users" children={<AdminUsers />}/>
       </Switch>
       <AdminNav />
     </>

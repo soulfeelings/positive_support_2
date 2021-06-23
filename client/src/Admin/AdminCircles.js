@@ -11,7 +11,6 @@ function AdminCircles() {
   const [searchItem, setSearchItem] = useState('');
   const [addForm, setAddForm] = useState(false);
 
-
   const deleteCircleHandler = (id) => {
     axios.delete(`http://localhost:4000/circle/delete/${id}`)
     .then(res => circles.filter(el => el._id !== res.data._id))
