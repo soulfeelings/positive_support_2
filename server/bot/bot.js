@@ -1,7 +1,7 @@
 import TelegramBot from 'node-telegram-bot-api';
 import axios from 'axios';
 import { commonkeyboard } from './keyboards.js';
-import { commontext, errorcallback, letsgotosite, nocommand, youaddedtocommon } from './texts.js';
+import { commontext, errorcallback, letsgotosite, nocommand, starttext, youaddedtocommon } from './texts.js';
 import Circle from '../models/circle.model.js';
 import User from '../models/user.model.js';
 import { krugovert } from './krugovert.js';
@@ -20,6 +20,12 @@ bot.on('message', async (msg) => {
 
   switch (text) {
     case '/start':
+      bot.sendMessage(chatId, starttext, {parse_mode: 'MarkdownV2'});
+      break;
+    case '/reg':
+      if(await userExists(chatId)) {
+        return bot.sendMessage(chatId, 'А вы уже с нами:)');
+      }
       let userProfile = bot.getUserProfilePhotos(msg.from.id);
       userProfile.then(function (res) {
         let file_id = res.photos[0][0].file_id;
@@ -47,21 +53,11 @@ bot.on('callback_query', async (query) => {
     // Ловим выбор вступать или нет в общий круговорот
     case 'common':
       if (answer === 'yes') {
-        try {
-          const user = await User.findOne({ chatId: id });
-          const circle = await Circle.updateOne(
-            { name: 'common' },
-            { $addToSet: { connected_users: user._id } },
-          ).exec();
-          if (circle.n) {
-            bot.sendMessage(id, youaddedtocommon);
-          }
-        } catch (error) {
-          bot.sendMessage(id, 'Какая-то ошибка с базой, типа ' + error.message);
-          console.log(error);
-        }
+        addUserToCommonGroup(id);
       } else if (answer === 'no') {
         bot.sendMessage(id, letsgotosite);
+        await sendTimoutMessage(1000, id, 'Лови ссылку');
+        giveMeLink(id);
       }
       break;
     default:
@@ -69,6 +65,45 @@ bot.on('callback_query', async (query) => {
       break;
   }
 });
+
+async function addUserToCommonGroup(id) {
+  try {
+
+    const user = await userExists(id);
+    if(!user) {
+      return bot.sendMessage(id, 'Вам похоже надо зарегистрироваться')
+    }
+
+    const updatingCircle = await Circle.updateOne(
+      { name: 'Общее' },
+      { $addToSet: { connected_users: user._id } },
+    ).exec();
+    
+    const circle = await Circle.findOne({name: 'Общее'});
+    if(!circle) {
+      return bot.sendMessage(id, 'Почему-то нет общего сообщества с именем "Общее". Нужна помощь администратора')
+    }
+
+    const updatingUser = await User.updateOne(
+      { chatId: id },
+      { $addToSet: { connected_circles: circle._id } },
+    ).exec();
+
+    if (updatingCircle.n && updatingUser.n) {
+      bot.sendMessage(id, youaddedtocommon);
+      sendTimoutMessage(1000, id, 'Поздравляю. Скоро тебя ждет первое взаимодействие в нашем сервисе. Тебе придет чей-то никнейм. Поддержи это человека. И также твой никнейм придет кому-то и тебя обязательно поддержат. До связи!')
+    }
+
+  } catch (error) {
+    bot.sendMessage(id, 'Какая-то ошибка с базой, типа ' + error.message);
+    console.log(error);
+  }
+}
+
+// По хорошему сделать статическим методом модели User
+async function userExists(chatId) {
+  return await User.findOne({chatId}).exec()
+}
 
 async function giveMeLink(chatId) {
   const res = await linkgenerator(`${chatId}`);

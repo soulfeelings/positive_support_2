@@ -1,10 +1,9 @@
-import React from 'react';
+import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-function Profile_circle({info, currentUser}) {
-
+function Profile_circle({ info, currentUser }) {
   const dispatch = useDispatch();
-    const goout = (id) => {
-   console.log(id);
+  const goout = (id) => {
+    console.log(id);
     fetch(`http://localhost:4000/circle/unfollow`, {
       method: "POST",
       headers: {
@@ -12,7 +11,7 @@ function Profile_circle({info, currentUser}) {
       },
       body: JSON.stringify({
         currentUser,
-        id
+        id,
       }),
     })
       .then((response) => response.json())
@@ -26,14 +25,13 @@ function Profile_circle({info, currentUser}) {
       });
   };
   return (
-    <div>
-    {info.name}
-
-        <button onClick = {() => goout(info._id)}>
-          выйти
-        </button>
+    <div class="item">
+      <h3>{info.name}</h3>
+      {/* <img class="picture" src={info.img}></img> */}
+      <button class="profile_button" onClick={() => goout(info._id)}>
+        ВЫЙТИ
+      </button>
     </div>
   );
-
-  }
+}
 export default Profile_circle;
