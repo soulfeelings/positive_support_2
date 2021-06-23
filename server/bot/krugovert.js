@@ -39,10 +39,10 @@ export async function krugovert(bot, name) {
           Поддержи сегодня: ${randomperson.firstName} ${randomperson.lastName}, вот его телеграм - @${randomperson.name}
         `;
 
-        if(randomperson.situation) {
+        if (randomperson.situation) {
           message += `
             Его ситуация: ${randomperson.situation}
-          `
+          `;
         }
         bot.sendMessage(last.chatId, message);
 
@@ -51,13 +51,13 @@ export async function krugovert(bot, name) {
             Поддержи сегодня пожалуйста еще одного человека: ${last.firstName} ${last.lastName}, вот его телеграм - @${last.name}
           `;
 
-          if(last.situation) {
+          if (last.situation) {
             message += `
               Его ситуация: ${last.situation}
-            `
+            `;
           }
 
-          bot.sendMessage(randomperson.chatId, message)
+          bot.sendMessage(randomperson.chatId, message);
         }, 5000);
       }
     });
@@ -70,10 +70,18 @@ export async function krugovert(bot, name) {
     for (let i = 0; i < from.length; i++) {
       const person = from[i];
       const partner = to[i];
-      bot.sendMessage(
-        person.chatId,
-        `Поддержи сегодня: ${partner.firstName} ${partner.lastName}, вот его телеграм - @${partner.name}`,
-      );
+
+      let message = `
+        Поддержи сегодня: ${partner.firstName} ${partner.lastName}, вот его телеграм - @${partner.name}
+      `;
+
+      if (partner.situation) {
+        message += `
+          Его ситуация: ${partner.situation}
+        `;
+      }
+
+      bot.sendMessage(person.chatId, message);
     }
   }
 }
