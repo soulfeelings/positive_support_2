@@ -26,10 +26,10 @@ function ProfileCircle({ info, currentUser }) {
       });
   };
   return (
-    <div class="item">
-      <h3>{info}</h3>
+    <div className="item">
+      <h3>{info.name}</h3>
       {/* <img class="picture" src={info.img}></img> */}
-      <button class="profile_button" onClick={() => goout(info._id)}>
+      <button className="profile_button" onClick={() => goout(info._id)}>
         ВЫЙТИ
       </button>
     </div>

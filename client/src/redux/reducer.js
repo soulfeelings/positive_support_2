@@ -13,7 +13,7 @@ import {
   REQUEST_UPDATE_SUTUATION_ERROR,
   REQUEST_UPDATE_SUTUATION_SUCCESS,
   CIRCLE_GO_OUT,
-} from './actiontypes';
+} from "./actiontypes";
 
 const initialState = {
   circles: [],
@@ -36,7 +36,7 @@ function reducer(state = initialState, action) {
       return {
         ...state,
         currentUser: {
-          status: 'unauthorized',
+          status: "unauthorized",
         },
       };
 
@@ -53,30 +53,23 @@ function reducer(state = initialState, action) {
         currentCircle: action.payload.circle,
       };
 
-    // case INIT_ADMIN:
-    //   localStorage.setItem('token', action.payload.token);
-    //   return {
-    //     ...state,
-    //     currentUser: action.payload.admin,
-    //   };
-
     case ADD_CIRCLE:
       return {
         ...state,
-        circles: [...state.circles, action.payload]
+        circles: [...state.circles, action.payload],
       };
-    
-      case INIT_ALL_USERS:
-        return {
-          ...state,
-          users: action.payload
-        }
-      
-      case UPDATE_USER:
-        return {
-          ...state,
-          users: action.payload
-        }
+
+    case INIT_ALL_USERS:
+      return {
+        ...state,
+        users: action.payload,
+      };
+
+    case UPDATE_USER:
+      return {
+        ...state,
+        users: action.payload,
+      };
     case CIRCLE_GO_OUT:
       console.log(state.circles);
       console.log(action.payload);
@@ -84,21 +77,20 @@ function reducer(state = initialState, action) {
         ...state,
         // circles: [...state.circles].filter(
         //   (el) => el._id !== action.payload ),
-          currentUser: {
-            ...state.currentUser,
-            connected_circles: state.currentUser.connected_circles.filter(el=> el._id !== action.payload)
-          }
+        currentUser: {
+          ...state.currentUser,
+          connected_circles: state.currentUser.connected_circles.filter(
+            (el) => el._id !== action.payload
+          ),
+        },
+      };
 
-      }
+    case DELETE_CIRCLE:
+      return {
+        ...state,
+        circles: action.payload,
+      };
 
-
-
-      case DELETE_CIRCLE: 
-        return {
-          ...state,
-          circles: action.payload
-        }
-      
     // Ситуация пользователя
     case REQUEST_UPDATE_SUTUATION:
       return state;
@@ -110,7 +102,7 @@ function reducer(state = initialState, action) {
       };
 
     case REQUEST_UPDATE_SUTUATION_ERROR:
-      console.log('Ошибка на сервере', action.payload);
+      console.log("Ошибка на сервере", action.payload);
       return state;
 
     default:

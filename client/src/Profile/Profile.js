@@ -10,28 +10,29 @@ import insertStyles from "../helpers/insertStyles";
 
 function Profile(props) {
   const currentUser = useSelector((state) => state.currentUser);
+  const circles = useSelector((state) => state.circles);
+  const mycircles = circles.filter((c) => currentUser.connected_circles.includes(c._id));
 
   useEffect(() => insertStyles(profileStyles), []);
 
   return currentUser ? (
     <>
-      <div class="profile">
-        <div class="container">
+      <div className="profile">
+        <div className="container">
           <h2 className="profile_header">
             {currentUser.firstName} {currentUser.lastName}
           </h2>
-       <div class="picture"> <img src={currentUser.photo_url}></img></div>
-          <p class='text'>text
-          {currentUser.situation}</p>
-          <div class='input_profile'>
+       <div className="picture"> <img src={currentUser.photo_url}></img></div>
+          <p className='text'>{currentUser.situation}</p>
+          <div className='input_profile'>
             <SituationForm />
           </div>
 
         </div>
       </div>
 
-      <div class="wrapper">
-        {currentUser.connected_circles?.map((el) => {
+      <div className="wrapper">
+        {mycircles?.map((el) => {
           return (
             <ProfileCircle currentUser={currentUser} info={el} key={el._id} />
           );

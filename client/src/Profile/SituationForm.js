@@ -21,6 +21,8 @@ function SituationForm() {
         JSON.stringify({ situation, _id: currentUser._id })
       )
     );
+
+    event.target.reset()
   }
 
   return (
