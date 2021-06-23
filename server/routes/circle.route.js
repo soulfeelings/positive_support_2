@@ -1,6 +1,8 @@
 import { Router } from 'express';
 import multer from 'multer';
 import path from 'path';
+// import bot from '../bot/bot.js';
+import { krugovert } from '../bot/krugovert.js';
 import Circle from '../models/circle.model.js';
 import User from '../models/user.model.js';
 import { followCircleBotMessage, unfollowCircleBotMessage } from '../bot/bot.js'
@@ -79,5 +81,16 @@ circlesRouter
     });
     res.status(201).send(newCircle);
   });
+
+circlesRouter.route('/start')
+  .post(async (req, res) => {
+    try {
+      await krugovert(bot, req.body.name)
+      res.status(200).send({message: `круговорот ${req.body.name} запущен`})
+    } catch (error) {
+      console.log(error);
+      res.status(500).send({message: `Не удалось запустить круговорот ${req.body.name}!`})
+    }
+  })
 
 export default circlesRouter;
