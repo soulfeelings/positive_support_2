@@ -1,24 +1,12 @@
-import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import AdminCircles from './AdminCircles';
-import AdminUsers from './AdminUsers';
 
-function AdminNav(props) {
-  
+
+function AdminNav() {
   return (
-    <>
-      {/* {theme === 'circles' && <AdminCircles />}
-      {theme === 'users' && <AdminUsers />} */}
-      <div>
-        <button >
-          Круговороты
-        </button>
-        <button  >
-          Пользователи
-        </button>
-        <button>Выйти</button>
-      </div>
-    </>
+    <div>
+      <Link to="/admin/circles">Круговороты</Link>
+      <Link to="/admin/users">Пользователи</Link>
+    </div>
   );
 }
 

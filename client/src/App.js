@@ -39,30 +39,23 @@ function App() {
     <BrowserRouter>
       {status === "unauthorized" 
         ? <BotTransferPage /> 
-         : status === "admin" 
-            ? <>
-            <AdminPage />
-              {/* <Switch>
-                <Route path="/admin" children={<AdminPage />} exact />
-                <Route path="/admin/circles" children={<AdminCircles />} />
-                <Route path="/admin/users" children={<AdminUsers />} />
-              </Switch>  */}
-              </>
-            :<>
-             {/* <BotTransferPage />  */}
-              <Switch>
-                <Route path="/" children={<Circles />} exact />
-                <Route path="/circule" children={<Circles />} />
-                <Route path="/circle/:circleId" children={<OneCircle />} />
-                {/* <Route path="/circule" children={<Circles /> } exact />*/}
-                <Route path="/circleOld/:circleId" children={<Circle />} />
-                <Route path="/profile/:secretId" children={<Profile />} />
-                <Route path="/admin" children={<AdminPage />} />
-                {/* Страница теста заглушки */}
-                <Route path="/unauth" children={<BotTransferPage />}/>
-
-              </Switch>
-            </>
+        :
+          <>
+            <Switch>
+              <Route path="/" children={<Circles />} exact />
+              <Route path="/circule" children={<Circles />} />
+              <Route path="/circle/:circleId" children={<OneCircle />} />
+              <Route path="/admin" children={<AdminPage />} exact />
+              {/* <Route path="/admin/circles" children={<AdminCircles />} />
+              <Route path="/admin/users" children={<AdminUsers />} /> */}
+              {/* <Route path="/circule" children={<Circles /> } exact />*/}
+              <Route path="/circleOld/:circleId" children={<Circle />} />
+              <Route path="/profile/:secretId" children={<Profile />} />
+              <Route path="/admin" children={<AdminPage />} />
+              {/* Страница теста заглушки */}
+              <Route path="/unauth" children={<BotTransferPage />}/>
+            </Switch>
+          </>
       }
     </BrowserRouter>
   );
