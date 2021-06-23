@@ -67,7 +67,6 @@ circlesRouter.route('/delete/:id')
 
 circlesRouter.route('/add') 
   .post(upload.single('file'), async (req, res, next) => {
-    console.log(req.body.name);
     const newCircle = await Circle.create({
       name: req.body.name,
       img: req.file.path

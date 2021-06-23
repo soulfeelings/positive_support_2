@@ -1,13 +1,10 @@
-import React, { useEffect, useState } from 'react';
-import AdminLogin from '../Admin/AdminLogin';
-import AdminPage from '../Admin/AdminPage';
+import { useEffect } from 'react';
 // import insertStyles from '../helpers/insertStyles';
 import { botTransferPageStyles } from './BotTransferPageStyles';
 // import './BotTransfer.css';
 
 function BotTransferPage() {
-  const [admin, setAdmin] = useState(false);
-  console.log(admin);
+
   function handleClicK() {
     window.location = 'https://t.me/positive_support_bot';
   }
@@ -28,13 +25,7 @@ function BotTransferPage() {
         <div id="overlay"></div>
         <div id="main" style={{ height: '100%' }}>
           <header id="header">
-            {admin ? (
-              <AdminLogin />
-            ) : (
               <button onClick={() => handleClicK()}>Зарегистрируйтесь через чат бот</button>
-            )}
-
-            <button onClick={() => setAdmin(!admin)}>Я администратор</button>
           </header>
         </div>
       </div>

@@ -1,6 +1,7 @@
 import {
   ADD_CIRCLE,
-  INIT_ADMIN,
+  DELETE_CIRCLE,
+  // INIT_ADMIN,
   INIT_ALL_USERS,
   INIT_CIRCLES,
   INIT_ONE_CIRCLE,
@@ -72,6 +73,13 @@ function reducer(state = initialState, action) {
           ...state,
           users: action.payload
         }
+
+      case DELETE_CIRCLE: 
+        return {
+          ...state,
+          circles: action.payload
+        }
+      
 
     default:
       return state;
