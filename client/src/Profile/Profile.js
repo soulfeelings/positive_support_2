@@ -3,6 +3,8 @@ import { useSelector } from "react-redux";
 import Profile_circle from "./Profile_circle";
 import { profileStyles } from "./profilestyles.js";
 import insertStyles from "../helpers/insertStyles";
+
+
 function Profile(props) {
   const currentUser = useSelector((state) => state.currentUser);
   const [styled, setStyled] = useState(false);
@@ -20,9 +22,13 @@ function Profile(props) {
           <h2 className="profile_header">
             {currentUser.firstName} {currentUser.lastName}
           </h2>
-          <img src={currentUser.photo_url}></img>
-          <p>{currentUser.situation}</p>
-          <input />
+       <div class="picture"> <img src={currentUser.photo_url}></img></div>
+          <p class='text'>text
+          {currentUser.situation}</p>
+          <div class='input_profile'>
+              <input />
+          </div>
+
         </div>
       </div>
 
@@ -38,3 +44,4 @@ function Profile(props) {
 }
 
 export default Profile;
+

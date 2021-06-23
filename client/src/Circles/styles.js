@@ -2855,7 +2855,7 @@ button:disabled,
   min-height: 23em;
   overflow: hidden;
   position: relative;
-  width: 40%;
+  width: 50%;
 }
 
 .tiles article .image {
@@ -2910,11 +2910,11 @@ button:disabled,
   position: absolute;
   top: 0;
   width: 100%;
-  z-index: 1;
+   z-index: 1;
 }
 
 .tiles article:hover:before {
-  opacity: 0;
+  opacity: 0.3;
 }
 
 .tiles article.is-transitioning {
@@ -2931,23 +2931,30 @@ button:disabled,
 
 .tiles article:nth-child(4n - 1),
 .tiles article:nth-child(4n - 2) {
-  width: 60%;
+  width: 50%;
 }
 
 .tiles article:nth-child(6n - 5):before {
   background-color: #6fc3df;
+     background-image: url("images/progr.jpg");
+
 }
 
 .tiles article:nth-child(6n - 4):before {
-  background-color: #8d82c4;
-}
+		background-color: #8d82c4;
+    background-image: url("images/progr.jpg");
+
+			}
 
 .tiles article:nth-child(6n - 3):before {
-  background-color: #ec8d81;
+   background-color: #ec8d81;
+  background-image: url("images/progr.jpg");
+
 }
 
 .tiles article:nth-child(6n - 2):before {
-  background-color: #e7b788;
+    background-color: black;
+    background-image: url("images/progr.jpg");
 }
 
 .tiles article:nth-child(6n - 1):before {
@@ -4035,4 +4042,4 @@ body.is-menu-visible #menu .inner {
   visibility: visible;
 }
 
-`
+`;

@@ -79,7 +79,7 @@ function OneCircle() {
               </a>
             </h1>
             <hr />
-            <p>Чтобы подключиться к круговороту - нажмите Start</p>
+            <p>Чтобы подключиться к круговороту - нажмите Начать</p>
           </header>
           <footer>
             {!isInCircle ? (
@@ -88,7 +88,7 @@ function OneCircle() {
                 className="button circled scrolly"
                 onClick={followHandler}
               >
-                Start
+                Начать
               </a>
             ) : (
               <a
@@ -109,7 +109,7 @@ function OneCircle() {
             alt=""
             className="circulation_img"
             // src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSTdeZ9vpR27khWeaQbiYd-1ARV-XtJ7JzWBw&usqp=CAU"
-            src={currentCircle?.img}
+            src={currentUser.photo_url}
           />
           <div className="container_users">
             <div className="sub_container_users">

@@ -1,35 +1,39 @@
-/* @import url(fontawesome-all.min.css); */
 
-/*
-	Hyperspace by HTML5 UP
-	html5up.net | @ajlkn
-	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
-*/
 export const profileStyles = `
 
 
 
 
-
-	* {
+*
+{
 		box-sizing: border-box;
-
+  background-color: blueviolet;
 	}
+.input_profile {
+  margin-bottom: 5em;
+}
+
+
+  .profile {
+    display: flex;
+    justify-content: center;
+    font-size: 20px;
+    margin: 0 auto;
+    max-width: 30em;
+    min-width: 25em;
+    text-align: center;
 
 
 
-    .profile {
-    font-size: 25px;
-    width: 300em,
   }
   .profile_button {
     font-style: normal;
     font-weight: bold;
-    color: #FFFFFF;
-    padding: 1em 4em;
+    color: rgba(255, 255, 255, 0.5);
+    padding: 1em 2em;
     border-radius: 1em;
     border: none;
-    background-color: #183B56;
+    background-color: rgba(182, 116, 176, 0.5);
     cursor: pointer;
     outline: none;
 
@@ -37,11 +41,41 @@ export const profileStyles = `
   .wrapper {
 
     display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
+    flex-direction: column;
+    justify-content: center;
 
 
   }
+.profile_header {
+       font-size: 2.25em;
+       margin-top: 5em;
+       font-weight: 700;
+       color: rgba(255, 255, 255, 0.5);
+       text-align: center;
 
 
-`;
+}
+img{
+  border-radius: 50%;
+    width: 10em;
+}
+
+.picture {
+margin-bottom: 10em;
+}
+.text {
+  color: rgba(255, 255, 255, 0.5);
+    position: relative;
+    margin: 0 0 1.5em 0;
+}
+
+.item {
+  display: flex;
+  justify-content: space-between;
+  width: 25em;
+  padding: 2em;
+  margin: 0 auto;
+  color: rgba(255, 255, 255, 0.5);
+
+}
+`
