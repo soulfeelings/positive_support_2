@@ -2,7 +2,6 @@
 import axios from 'axios';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import Circles from './Circles/Circles';
-import Profile from './Profile/Profile';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { setUserAC, setUserUnauthorized } from './redux/actionCreators/userActionCreators';
@@ -10,21 +9,29 @@ import BotTransferPage from './BotTransfer.page/BotTransferPage';
 import OneCircle from './OneCircle/OneCircle';
 import Circle from './Circle/Circle';
 import AdminPage from './Admin/AdminPage';
-
-
+import Profile from './Profile/Profile';
+import ProfileCheck from './Profile/ProfileCheck';
 
 function App() {
   const dispatch = useDispatch();
   const status = useSelector((state) => state.currentUser.status);
   
   useEffect(() => {
-    axios
-      .get('http://localhost:4000/user/auth', {
-        headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
-      })
-      .then((res) =>  dispatch(setUserAC(res.data)))
-      .then((res) =>  localStorage.setItem('token', res.payload.token))
-      .catch((err) => dispatch(setUserUnauthorized()));
+    const token = localStorage.getItem('token');
+    if(token) {
+      axios
+        .get('http://localhost:4000/user/auth', {
+          headers: { Authorization: `Bearer ${token}` },
+        })
+        .then((res) => dispatch(setUserAC(res.data)))
+        .catch((err) => dispatch(setUserUnauthorized()));
+    } else {
+      dispatch(setUserUnauthorized());
+    }
+  }, [dispatch])
+
+  useEffect(() => {
+      
   }, [dispatch]);
   
 
@@ -36,25 +43,23 @@ function App() {
 
   return (
     <BrowserRouter>
-      {status === "unauthorized" 
-        ? <BotTransferPage /> 
-        :
-          <>
-            <Switch>
-              <Route path="/" children={<Circles />} exact />
-              <Route path="/circule" children={<Circles />} />
-              <Route path="/circle/:circleId" children={<OneCircle />} />
-              <Route path="/admin" children={<AdminPage />} exact />
-              {/* <Route path="/admin/circles" children={<AdminCircles />} />
-              <Route path="/admin/users" children={<AdminUsers />} /> */}
-              {/* <Route path="/circule" children={<Circles /> } exact />*/}
-              <Route path="/circleOld/:circleId" children={<Circle />} />
-              <Route path="/profile/:secretId" children={<Profile />} />
-              <Route path="/admin" children={<AdminPage />} />
-              {/* Страница теста заглушки */}
-              <Route path="/unauth" children={<BotTransferPage />}/>
-            </Switch>
-          </>
+      {status === "unauthorized"
+      ? <BotTransferPage /> 
+      : 
+        <>
+          <Switch>
+            <Route path="/" children={<Circles />} exact />
+
+            <Route path="/circle/:circleId" children={<OneCircle />} />
+
+            <Route path="/profile" children={<Profile />} exact />
+            <Route path="/profile/:secretId" children={<ProfileCheck />} />
+
+            <Route path="/admin" children={<AdminPage />} exact />
+
+            <Route path="/unauth" children={<BotTransferPage />} />
+          </Switch>
+        </>
       }
     </BrowserRouter>
   );

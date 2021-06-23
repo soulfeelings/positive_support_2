@@ -7,7 +7,9 @@ import { getFaces } from '../helpers/getFaces';
 import axios from 'axios';
 import { initOneCircleAC } from '../redux/actionCreators/circleAC';
 import { updateStateAC } from '../redux/actionCreators/updateStateAC';
-// import './OneCircle.css'
+import './Circulation.css';
+import PortalToBody from '../Navigation/Portal';
+import Navigation from '../Navigation/Navigation';
 
 function OneCircle() {
   // const {id} = useParams();
@@ -32,14 +34,17 @@ function OneCircle() {
       .then((data) =>
         data.payload.connected_users?.includes(currentUser?._id)
           ? setIsInCircle(true)
-          : setIsInCircle(false),
+          : setIsInCircle(false)
       );
   }, [dispatch, currentUser, circleId]);
 
   const followHandler = (e) => {
     e.preventDefault();
     axios
-      .post('http://localhost:4000/circle/follow', { currentUser, id: currentCircle._id })
+      .post('http://localhost:4000/circle/follow', {
+        currentUser,
+        id: currentCircle._id,
+      })
       .then((res) => dispatch(updateStateAC(res.data)))
       .catch((err) => alert(err));
     setIsInCircle(true);
@@ -48,7 +53,10 @@ function OneCircle() {
   const unfollowHandler = (e) => {
     e.preventDefault();
     axios
-      .post('http://localhost:4000/circle/unfollow', { currentUser, id: currentCircle._id })
+      .post('http://localhost:4000/circle/unfollow', {
+        currentUser,
+        id: currentCircle._id,
+      })
       .then((res) => dispatch(updateStateAC(res.data)))
       .catch((err) => alert(err));
     setIsInCircle(false);
@@ -77,11 +85,19 @@ function OneCircle() {
           </header>
           <footer>
             {!isInCircle ? (
-              <a href="#banner" className="button circled scrolly" onClick={followHandler}>
+              <a
+                href="#banner"
+                className="button circled scrolly"
+                onClick={followHandler}
+              >
                 Start
               </a>
             ) : (
-              <a href="#banner" className="button circled scrolly" onClick={unfollowHandler}>
+              <a
+                href="#banner"
+                className="button circled scrolly"
+                onClick={unfollowHandler}
+              >
                 Stop
               </a>
             )}
@@ -90,37 +106,42 @@ function OneCircle() {
       </div>
 
       <section id="banner">
-        <header>
-          <div className="circulation">
-            <img
-              alt=""
-              className="circulation_img"
-              // src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSTdeZ9vpR27khWeaQbiYd-1ARV-XtJ7JzWBw&usqp=CAU"
-              src={currentCircle?.img}
-            />
-            <div className="container_users">
-              <div className="sub_container_users">
-                {users?.map((el, i) => (
-                  <div key={Date.now() + i} className="block">
-                    <div className="square">
-                      <img alt="" className="square" src={el} />
-                    </div>
+        <div className="circulation">
+          <img
+            alt=""
+            className="circulation_img"
+            // src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSTdeZ9vpR27khWeaQbiYd-1ARV-XtJ7JzWBw&usqp=CAU"
+            src={currentCircle?.img}
+          />
+          <div className="container_users">
+            <div className="sub_container_users">
+              {users?.map((el, i) => (
+                <div key={Date.now() + i} className="block">
+                  <div className="square">
+                    <img alt="" className="square" src={el} />
                   </div>
-                ))}
-              </div>
+                </div>
+              ))}
             </div>
           </div>
+        </div>
+        <header className='description_circle'>
           <h2>
-            Круговорот <strong>{currentCircle.name}</strong>.
+            Ты можешь присоединиться к <strong>{currentCircle.name}</strong>.
           </h2>
           <p>
-            Мы все с вами учились. И если вспомнить, то бывали времена, когда учеба дается сложно. В
-            такие моменты очень хочется ощущать себя не одиноким, ощущать поддержку, которая придаст
-            сил справится с трудностями. В этом круговороте мы поддерживаем друг друга, чтобы
-            учиться в приподнятом настроении, легко справлятся со сложностями. Подключайтесь
+            Мы все с вами учились. И если вспомнить, то бывали времена, когда
+            учеба дается сложно. В такие моменты очень хочется ощущать себя не
+            одиноким, ощущать поддержку, которая придаст сил справится с
+            трудностями. В этом круговороте мы поддерживаем друг друга, чтобы
+            учиться в приподнятом настроении, легко справлятся со сложностями.
+            Подключайтесь
           </p>
         </header>
       </section>
+      <PortalToBody>
+        <Navigation name="На главную" link="/"/>
+      </PortalToBody>
     </div>
   );
 }

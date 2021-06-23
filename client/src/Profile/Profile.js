@@ -1,22 +1,20 @@
 import React, { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useHistory, useParams } from 'react-router';
 import { authFunction } from '../helpers/authFunction';
+import Navigation from '../Navigation/Navigation';
+import PortalToBody from '../Navigation/Portal';
 
 function Profile(props) {
 
-  const dispatch = useDispatch();
-  const history = useHistory()
-  const { secretId } = useParams();
-
-  useEffect(() => {
-    authFunction(secretId, dispatch)
-      history.push('/')
-  }, [secretId, history, dispatch]);
+  const currentUser = useSelector((state) => state.currentUser)
 
   return (
     <div>
-      ProfilePage
+      ProfilePage {currentUser.name}
+      <PortalToBody>
+        <Navigation name="На главную" link="/"/>
+      </PortalToBody>
     </div>
   );
 }

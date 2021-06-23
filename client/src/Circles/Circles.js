@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import insertStyles from "../helpers/insertStyles";
+import Navigation from "../Navigation/Navigation";
+import PortalToBody from "../Navigation/Portal";
 import { circlesStyles } from "./styles";
 
 function Circles(props) {
@@ -31,7 +33,7 @@ function Circles(props) {
         <section id="banner" className="major">
           <div className="inner">
             <header className="major">
-              <h2>ВЫБЕРИТЕ ТЕМУ</h2>
+              <h2>ВЫБЕРИТЕ СООБЩЕСТВО</h2>
             </header>
           </div>
         </section>
@@ -43,7 +45,6 @@ function Circles(props) {
                 
                 <header className="major">
                   <h3>
-                    {/* <Link to={`/circule/${el._id}`}>{el.name}</Link> */}
                     {el.name}
                   </h3>
 
@@ -55,6 +56,9 @@ function Circles(props) {
           ))}
         </section>
       </div>
+      <PortalToBody>
+        <Navigation name="Профиль" link="/profile"/>
+      </PortalToBody>
     </div>
   );
 }

@@ -4,6 +4,10 @@ import Circle from '../models/circle.model.js';
 
 const circles = [
   {
+    name: 'Общее',
+    img: `${faker.image.nature()}?random=${Date.now()}`,
+  },
+  {
     name: 'Программирование',
     img: `${faker.image.nature()}?random=${Date.now()}`,
   },
@@ -13,12 +17,15 @@ const circles = [
   },
   {
     name: 'Учеба',
+    img: `${faker.image.nature()}?random=${Date.now()}`,
   },
   {
     name: 'Отношения',
+    img: `${faker.image.nature()}?random=${Date.now()}`,
   },
   {
     name: 'Спорт',
+    img: `${faker.image.nature()}?random=${Date.now()}`,
   },
 ];
 
