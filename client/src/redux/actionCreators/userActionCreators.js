@@ -8,3 +8,4 @@ export const setUserAC = (payload) => ({
 export const setUserUnauthorized = () => ({
   type: UNAUTHORIZED_USER
 })
+

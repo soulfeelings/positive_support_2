@@ -1,4 +1,4 @@
-import { INIT_CIRCLES, SET_USER, UNAUTHORIZED_USER } from './actiontypes';
+import { INIT_CIRCLES, INIT_ONE_CIRCLE, SET_USER, UNAUTHORIZED_USER, UPDATE_STATE, CIRCLE_GO_OUT } from './actiontypes';
 
 const initialState = {
   circles: [],
@@ -26,6 +26,34 @@ function reducer(state = initialState, action) {
           status: "unauthorized",
         }
       }
+
+    case INIT_ONE_CIRCLE:
+      return {
+        ...state,
+        currentCircle: action.payload
+      }
+    case CIRCLE_GO_OUT:
+      console.log(state.circles);
+      console.log(action.payload);
+      return {
+        ...state,
+        // circles: [...state.circles].filter(
+        //   (el) => el._id !== action.payload ),
+          currentUser: {
+            ...state.currentUser,
+            connected_circles: state.currentUser.connected_circles.filter(el=> el._id !== action.payload)
+          }
+
+      }
+
+
+
+      case UPDATE_STATE:
+        return {
+          ...state,
+          currentUser: action.payload.user,
+          currentCircle: action.payload.circle
+        }
 
     default:
       return state;

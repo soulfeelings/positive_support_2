@@ -1,4 +1,6 @@
 export const INIT_CIRCLES = "INIT_CIRCLES";
 export const SET_USER = "SET_USER";
 export const UNAUTHORIZED_USER = "UNAUTHORIZED_USER"
-
+export const INIT_ONE_CIRCLE = "INIT_ONE_CIRCLE"
+export const UPDATE_STATE= "UPDATE_STATE"
+export const CIRCLE_GO_OUT= "CIRCLE_GO_OUT"

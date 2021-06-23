@@ -1,18 +1,11 @@
 import TelegramBot from 'node-telegram-bot-api';
 import axios from 'axios';
 import { commonkeyboard } from './keyboards.js';
-import {
-  commontext,
-  errorcallback,
-  letsgotosite,
-  nocommand,
-  youaddedtocommon,
-} from './texts.js';
+import { commontext, errorcallback, letsgotosite, nocommand, youaddedtocommon } from './texts.js';
 import Circle from '../models/circle.model.js';
 import User from '../models/user.model.js';
 import { krugovert } from './krugovert.js';
-import { linkgenerator } from '../middleware/linkgenerator.js'
-
+import { linkgenerator } from '../middleware/linkgenerator.js';
 
 const token = process.env.BOT_TOKEN;
 const bot = new TelegramBot(token, {
@@ -27,7 +20,16 @@ bot.on('message', async (msg) => {
 
   switch (text) {
     case '/start':
-      regUser(msg);
+      let userProfile = bot.getUserProfilePhotos(msg.from.id);
+      userProfile.then(function (res) {
+        let file_id = res.photos[0][0].file_id;
+        let file = bot.getFile(file_id);
+        file.then(function (result) {
+          let file_path = result.file_path;
+          let photo_url = `https://api.telegram.org/file/bot${token}/${file_path}`;  // получаем фото юзера из телеграма
+          regUser({ msg, photo_url });                                             // регистрируем пользователя
+        });
+      });
       break;
     case 'Войти на сайт':
       giveMeLink(chatId);
@@ -49,7 +51,7 @@ bot.on('callback_query', async (query) => {
           const user = await User.findOne({ chatId: id });
           const circle = await Circle.updateOne(
             { name: 'common' },
-            { $addToSet: { connected_users: user._id } }
+            { $addToSet: { connected_users: user._id } },
           ).exec();
           if (circle.n) {
             bot.sendMessage(id, youaddedtocommon);
@@ -71,27 +73,26 @@ bot.on('callback_query', async (query) => {
 async function giveMeLink(chatId) {
   const res = await linkgenerator(`${chatId}`);
   // При нормальной ссылке будет все хорошо, но пока не кликабельна
-  await bot.sendMessage(chatId, `<a href="http://localhost:3000/profile/${res}">http://localhost:3000/profile/${res}</a>`, {
-    parse_mode: 'HTML'
-  });
+  await bot.sendMessage(
+    chatId,
+    `<a href="http://localhost:3000/profile/${res}">http://localhost:3000/profile/${res}</a>`,
+    {
+      parse_mode: 'HTML',
+    },
+  );
   //'[inline URL](http://localhost:3000/profile/'+res+'/)'
   axios.post('http://localhost:4000/user/login', { chatId, secretId: res });
 }
 
-async function regUser(msg) {
-  const {
-    id: chatId,
-    username: name,
-    first_name: firstName,
-    last_name: lastName,
-  } = msg.chat;
+async function regUser({ msg, photo_url }) {
+  const { id: chatId, username: name, first_name: firstName, last_name: lastName } = msg.chat;
 
   if (!name) {
-    await sendTimoutMessage(1000, chatId, `В твоем телеграм аккаунте не заполнен username`)
-    await sendTimoutMessage(2000, chatId, `Вся логика программы построена на этом`)
-    await sendTimoutMessage(500, chatId, `Заполни его, пожалуйста, в настройках и возвращайся`)
+    await sendTimoutMessage(1000, chatId, `В твоем телеграм аккаунте не заполнен username`);
+    await sendTimoutMessage(2000, chatId, `Вся логика программы построена на этом`);
+    await sendTimoutMessage(500, chatId, `Заполни его, пожалуйста, в настройках и возвращайся`);
     return;
-  } 
+  }
 
   await sendTimoutMessage(0, chatId, `Привет, ${name}!`);
   await sendTimoutMessage(700, chatId, `Секунду, пытаюсь Вас зарегистрировать.`);
@@ -102,13 +103,10 @@ async function regUser(msg) {
       firstName,
       lastName,
       chatId,
+      photo_url,
     })
     .then(async (res) => {
-      await sendTimoutMessage(
-        2000,
-        chatId,
-        `${name} вы ${res.data.message}!`
-      );
+      await sendTimoutMessage(2000, chatId, `${name} вы ${res.data.message}!`);
       await sendTimoutMessage(2000, chatId, commontext, {
         reply_markup: {
           inline_keyboard: commonkeyboard,

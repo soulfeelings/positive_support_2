@@ -7,6 +7,8 @@ import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { setUserAC, setUserUnauthorized } from './redux/actionCreators/userActionCreators';
 import BotTransferPage from './BotTransfer.page/BotTransferPage';
+import OneCircle from './OneCircle/OneCircle';
+import Circle from './Circle/Circle';
 
 function App() {
   const dispatch = useDispatch();
@@ -21,6 +23,12 @@ function App() {
         .catch((err) => dispatch(setUserUnauthorized()));
   }, [dispatch]);
 
+  useEffect(() => {
+    fetch("http://localhost:4000/circle")
+      .then((res) => res.json())
+      .then((data) => dispatch({ type: "INIT_CIRCLES", payload: { data } }));
+  }, []);
+
   return (
     <BrowserRouter>
       {/* {status ? (
@@ -31,8 +39,15 @@ function App() {
             <Route path="/" children={<Circles />} exact />
             <Route path="/transfer" children={<BotTransferPage />} exact />
             <Route path="/circule" children={<Circles />} />
-               <Route path="/profile" children={<Profile />} />
+               <Route path="/profile" children={<Profile />} exact />
             {/* <Route path="/profile/:secretId" children={<Profile />} /> */}
+            <Route path="/circle/:circleId" children={<OneCircle />} />
+            {/* <Route path="/circule" children={<Circles /> } exact />*/}
+            <Route path="/circleOld/:circleId" children={<Circle /> } />
+            <Route path="/profile/:secretId" children={<Profile />} />
+
+            {/* Страница теста заглушки */}
+            <Route path="/unauth" children={<BotTransferPage />} />
           </Switch>
         </>
       {/* )} */}

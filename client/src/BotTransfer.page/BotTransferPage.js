@@ -1,15 +1,24 @@
-import React from 'react';
-import './BotTransfer.css';
+import React, { useEffect, useState } from 'react';
+import insertStyles from '../helpers/insertStyles';
+import { botTransferPageStyles } from './BotTransferPageStyles';
+// import './BotTransfer.css';
 
 function BotTransferPage(props) {
   function handleClicK() {
-    console.log('123');
     window.location = 'https://t.me/positive_support_bot';
   }
 
-  window.onload = function () {
-    document.body.classList.remove('is-preload');
-  };
+
+  useEffect(() => {
+    const $style = document.createElement("style");
+    document.head.appendChild($style);
+    $style.innerHTML = botTransferPageStyles;
+
+    const bg = document.getElementById("bg");
+    bg.style.background = '#348cb2 url("static/media/bg.74789351.jpg") bottom left repeat-x'
+
+    return () => document.head.removeChild($style)
+  }, []);
 
 
   return (
