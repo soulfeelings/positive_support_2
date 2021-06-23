@@ -26,6 +26,7 @@ circlesRouter.route('/follow')
 
 circlesRouter.route('/unfollow')
   .post(async (req, res) => {
+    console.log(1);
     const circle = await Circle.findById(req.body.id);
     const idx =  circle.connected_users.indexOf(req.body.currentUser._id);
     await circle.connected_users.splice(idx, 1)
@@ -39,10 +40,26 @@ circlesRouter.route('/unfollow')
     res.status(200).json({circle, user})
 });
 
-circlesRouter.route('/getCurrent') 
+circlesRouter.route('/getCurrent')
   .post(async (req, res) => {
     const circle = await Circle.findById(req.body.circleId);
     res.status(201).send(circle)
   })
+
+
+// circlesRouter.delete("/getCurrent/:id", async (req, res) => {
+//   const { id } = req.params;
+//   console.log(req.params);
+//   await Circle.findByIdAndDelete(id, (error, circleToDelete) => {
+//     if (error) {
+//       res.status(400).json({ delete: false, error });
+//     } else if (!circleToDelete) {
+//       res.status(404).json({ delete: false });
+//     } else {
+//       res.status(200).json({ delete: true, id });
+//     }
+//   });
+// });
+
 
 export default circlesRouter;

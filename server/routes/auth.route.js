@@ -16,7 +16,7 @@ authRouter.post('/create', async (req, res) => {
 });
 
 authRouter.post('/login', async (req, res) => {
-  
+
   try {
     const user = await User.findOneAndUpdate(
       { chatId: req.body.chatId },
@@ -29,7 +29,7 @@ authRouter.post('/login', async (req, res) => {
 
 authRouter.get('/auth', authMiddleware,  async (req, res) => {
   try {
-    const user = await User.findById(req.user.id)
+    const user = await User.findById(req.user.id).populate("connected_circles")
     const token = await jwt.sign({ id: user.id }, process.env.SC, { expiresIn: '1h' });
     res.status(200).send({ user, token });
   } catch (error) {
