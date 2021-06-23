@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux';
 import { useHistory, useParams } from 'react-router';
 import { authFunction } from '../helpers/authFunction';
 
-function Profile(props) {
+function ProfileCheck(props) {
 
   const dispatch = useDispatch();
   const history = useHistory()
@@ -16,9 +16,9 @@ function Profile(props) {
 
   return (
     <div>
-      ProfilePage
+      ProfileChecking
     </div>
   );
 }
 
-export default Profile;
+export default ProfileCheck;
