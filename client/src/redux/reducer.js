@@ -9,6 +9,9 @@ import {
   UNAUTHORIZED_USER,
   UPDATE_STATE,
   UPDATE_USER,
+  REQUEST_UPDATE_SUTUATION,
+  REQUEST_UPDATE_SUTUATION_ERROR,
+  REQUEST_UPDATE_SUTUATION_SUCCESS,
 } from './actiontypes';
 
 const initialState = {
@@ -80,6 +83,19 @@ function reducer(state = initialState, action) {
           circles: action.payload
         }
       
+    // Ситуация пользователя
+    case REQUEST_UPDATE_SUTUATION:
+      return state;
+
+    case REQUEST_UPDATE_SUTUATION_SUCCESS:
+      return {
+        ...state,
+        currentUser: { ...state.currentUser, situation: action.payload },
+      };
+
+    case REQUEST_UPDATE_SUTUATION_ERROR:
+      console.log('Ошибка на сервере', action.payload);
+      return state;
 
     default:
       return state;

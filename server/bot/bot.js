@@ -181,4 +181,12 @@ function sendTimoutMessage(timeout, chatId, msg, options = {}) {
   });
 }
 
+export function followCircleBotMessage(currentUser, circle) {
+  bot.sendMessage(currentUser.chatId, `Вы вступили в круговорот ${circle.name}`);
+}
+
+export function unfollowCircleBotMessage(currentUser, circle) {
+  bot.sendMessage(currentUser.chatId, `Вы вышли из круговорота ${circle.name}`);
+}
+
 export default bot;

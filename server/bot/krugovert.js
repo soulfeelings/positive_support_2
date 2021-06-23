@@ -28,9 +28,29 @@ export function krugovert(bot) {
       // Если у нас нечетный список, то останется один человек и вот это для него 
       if(last) {
         const randomperson = shuffleSecondArray.pop();
-        bot.sendMessage(last.chatId, `Поддержи сегодня: ${randomperson.firstName} ${randomperson.lastName}, вот его телеграм - @${randomperson.name}`);
+        let message = `
+          Поддержи сегодня: ${randomperson.firstName} ${randomperson.lastName}, вот его телеграм - @${randomperson.name}
+        `;
+
+        if(randomperson.situation) {
+          message += `
+            Его ситуация: ${randomperson.situation}
+          `
+        }
+        bot.sendMessage(last.chatId, message);
+
         setTimeout(() => {
-          bot.sendMessage(randomperson.chatId, `Поддержи сегодня пожалуйста еще одного человека: ${last.firstName} ${last.lastName}, вот его телеграм - @${last.name}`)
+          let message = `
+            Поддержи сегодня пожалуйста еще одного человека: ${last.firstName} ${last.lastName}, вот его телеграм - @${last.name}
+          `;
+
+          if(last.situation) {
+            message += `
+              Его ситуация: ${last.situation}
+            `
+          }
+
+          bot.sendMessage(randomperson.chatId, message)
         }, 5000);
       }
       

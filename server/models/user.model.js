@@ -10,6 +10,7 @@ const User = mongoose.model('User', {
   secretId: {type: String},
   connected_circles: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Circle' }],
   admin: { type: Boolean, default: false },
+  situation: {type: String, trim: true},
 });
 
 export default User;
