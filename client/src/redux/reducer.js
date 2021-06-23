@@ -1,11 +1,13 @@
 import {
   ADD_CIRCLE,
   INIT_ADMIN,
+  INIT_ALL_USERS,
   INIT_CIRCLES,
   INIT_ONE_CIRCLE,
   SET_USER,
   UNAUTHORIZED_USER,
   UPDATE_STATE,
+  UPDATE_USER,
 } from './actiontypes';
 
 const initialState = {
@@ -21,7 +23,6 @@ function reducer(state = initialState, action) {
         circles: action.payload.data.data,
       };
     case SET_USER:
-      localStorage.setItem('token', action.payload.token);
       return {
         ...state,
         currentUser: action.payload.user,
@@ -47,18 +48,30 @@ function reducer(state = initialState, action) {
         currentCircle: action.payload.circle,
       };
 
-    case INIT_ADMIN:
-      localStorage.setItem('token', action.payload.token);
-      return {
-        ...state,
-        currentUser: action.payload.admin,
-      };
+    // case INIT_ADMIN:
+    //   localStorage.setItem('token', action.payload.token);
+    //   return {
+    //     ...state,
+    //     currentUser: action.payload.admin,
+    //   };
 
     case ADD_CIRCLE:
       return {
         ...state,
         circles: [...state.circles, action.payload]
       };
+    
+      case INIT_ALL_USERS:
+        return {
+          ...state,
+          users: action.payload
+        }
+      
+      case UPDATE_USER:
+        return {
+          ...state,
+          users: action.payload
+        }
 
     default:
       return state;

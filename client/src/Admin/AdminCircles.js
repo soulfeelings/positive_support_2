@@ -1,11 +1,10 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import axios from 'axios';
 
 import { useSelector } from 'react-redux';
-import AdminNav from './AdminNav';
 import AddImgForm from './AddImgForm';
 
-function AdminCircles(props) {
+function AdminCircles() {
   const circles = useSelector((state) => state.circles);
   const [searchItem, setSearchItem] = useState('');
   const [addForm, setAddForm] = useState(false);
@@ -19,32 +18,23 @@ function AdminCircles(props) {
   return (
     <>
       <div>
-        <input
-          type="text"
-          placeholder="Search..."
-          onChange={(e) => setSearchItem(e.target.value)}
-        />
+        <input type="text" placeholder="Search..." onChange={(e) => setSearchItem(e.target.value)} />
 
-        {circles
-          ?.filter((el) => {
-            if (searchItem === '') {
-              return el;
-            } else if (el.name.toLowerCase().includes(searchItem.toLowerCase())) {
-              return el;
-            }
-          })
-          .map((el, index) => {
-            return (
-              <div key={el._id}>
-                <span>{el.name}</span>
-                <button onClick={() => deleteCircleHandler(el._id)}>X</button>
-              </div>
-            );
-          })}
+        {circles?.filter((el) => {
+            if (searchItem === '') { return el } 
+            else if (el.name.toLowerCase().includes(searchItem.toLowerCase())) { return el }
+            }).map((el) => {
+              return (
+                <div key={el._id}>
+                  <span>{el.name}</span>
+                  <button onClick={() => deleteCircleHandler(el._id)}>X</button>
+                </div>
+              );
+            })}
       </div>
+
       <button onClick={() => setAddForm(!addForm)}>
-        {' '}
-        {!addForm ? 'Добавить кругворот' : 'Закрыть'}{' '}
+        {!addForm ? 'Добавить кругворот' : 'Закрыть'}
       </button>
       <p></p>
       {addForm && <AddImgForm circles={circles} />}

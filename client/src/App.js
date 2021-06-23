@@ -3,16 +3,14 @@ import axios from 'axios';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import Circles from './Circles/Circles';
 import Profile from './Profile/Profile';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { setUserAC, setUserUnauthorized } from './redux/actionCreators/userActionCreators';
 import BotTransferPage from './BotTransfer.page/BotTransferPage';
 import OneCircle from './OneCircle/OneCircle';
 import Circle from './Circle/Circle';
 import AdminPage from './Admin/AdminPage';
-import AdminLogin from './Admin/AdminLogin';
-import AdminCircles from './Admin/AdminCircles';
-import AdminUsers from './Admin/AdminUsers';
+
 
 
 function App() {
@@ -25,6 +23,7 @@ function App() {
         headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
       })
       .then((res) =>  dispatch(setUserAC(res.data)))
+      .then((res) =>  localStorage.setItem('token', res.payload.token))
       .catch((err) => dispatch(setUserUnauthorized()));
   }, [dispatch]);
   

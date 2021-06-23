@@ -1,25 +1,14 @@
 import axios from 'axios';
-import React, { useEffect } from 'react';
-import { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useEffect } from 'react';
+import { useSelector } from 'react-redux';
 import { Route, Switch, useHistory } from 'react-router';
-import AddImgForm from './AddImgForm';
 import AdminCircles from './AdminCircles';
 import AdminNav from './AdminNav';
 import AdminUsers from './AdminUsers';
 
-function AdminPage(props) {
-  const dispatch = useDispatch();
-  const circles = useSelector((state) => state.circles);
+function AdminPage() {
   const user = useSelector((state) => state.currentUser);
   const history = useHistory();
-
-  const [searchItem, setSearchItem] = useState('');
-  const [addForm, setAddForm] = useState(false);
-
-  const deleteCircleHandler = (id) => {
-    axios.delete(`http://localhost:4000/circle/delete/${id}`).then((res) => console.log(res.data));
-  };
 
   useEffect(() => {
     if (user.admin === false) {
