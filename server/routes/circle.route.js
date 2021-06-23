@@ -59,6 +59,11 @@ circlesRouter.route('/unfollow').post(async (req, res) => {
   res.status(200).json({ circle, user });
 });
 
+circlesRouter.route('/getCurrent').post(async (req, res) => {
+  const circle = await Circle.findById(req.body.circleId);
+  res.status(201).send(circle);
+});
+    
 
 circlesRouter.route('/delete/:id').delete(async (req, res) => {
   const circle = await Circle.findByIdAndDelete(req.params.id);
