@@ -1,6 +1,6 @@
-import { INIT_ADMIN } from '../actiontypes';
+// import { INIT_ADMIN } from '../actiontypes';
 
-export const initAdminAC = (payload) => ({
-  type: INIT_ADMIN,
-  payload,
-});
+// export const initAdminAC = (payload) => ({
+//   type: INIT_ADMIN,
+//   payload,
+// });

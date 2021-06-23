@@ -14,3 +14,9 @@ export const addCirlesAC = (payload) => ({
   type: ADD_CIRCLE,
   payload
 })
+
+
+export const deleteCirccleAC = (payload) => ({
+  type: DELETE_CIRCLE,
+  payload
+})

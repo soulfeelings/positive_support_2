@@ -1,9 +1,12 @@
-export const INIT_CIRCLES = "INIT_CIRCLES";
-export const SET_USER = "SET_USER";
-export const UNAUTHORIZED_USER = "UNAUTHORIZED_USER"
-export const INIT_ONE_CIRCLE = "INIT_ONE_CIRCLE"
 export const UPDATE_STATE= "UPDATE_STATE"
-export const INIT_ADMIN="INIT_ADMIN"
-export const ADD_CIRCLE="ADD_CIRCLE"
+export const SET_USER = "SET_USER";
 export const INIT_ALL_USERS="INIT_ALL_USERS"
+export const UNAUTHORIZED_USER = "UNAUTHORIZED_USER"
+
+export const INIT_ADMIN="INIT_ADMIN"
+
+export const INIT_CIRCLES = "INIT_CIRCLES";
+export const INIT_ONE_CIRCLE = "INIT_ONE_CIRCLE"
+export const ADD_CIRCLE="ADD_CIRCLE"
 export const UPDATE_USER="UPDATE_USER"
+export const DELETE_CIRCLE="DELETE_CIRCLE"
