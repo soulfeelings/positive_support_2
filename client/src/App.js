@@ -12,7 +12,6 @@ import Circle from './Circle/Circle';
 import AdminPage from './Admin/AdminPage';
 
 
-
 function App() {
   const dispatch = useDispatch();
   const status = useSelector((state) => state.currentUser.status);
@@ -44,13 +43,9 @@ function App() {
               <Route path="/" children={<Circles />} exact />
               <Route path="/circule" children={<Circles />} />
               <Route path="/circle/:circleId" children={<OneCircle />} />
-              <Route path="/admin" children={<AdminPage />} exact />
-              {/* <Route path="/admin/circles" children={<AdminCircles />} />
-              <Route path="/admin/users" children={<AdminUsers />} /> */}
-              {/* <Route path="/circule" children={<Circles /> } exact />*/}
+              <Route path="/admin" children={<AdminPage />}  />
               <Route path="/circleOld/:circleId" children={<Circle />} />
               <Route path="/profile/:secretId" children={<Profile />} />
-              <Route path="/admin" children={<AdminPage />} />
               {/* Страница теста заглушки */}
               <Route path="/unauth" children={<BotTransferPage />}/>
             </Switch>
