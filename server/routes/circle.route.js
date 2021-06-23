@@ -1,7 +1,7 @@
 import { Router } from 'express';
 import Circle from '../models/circle.model.js';
 import User from '../models/user.model.js';
-import bot from '../bot/bot.js'
+import { followCircleBotMessage, unfollowCircleBotMessage } from '../bot/bot.js'
 
 const circlesRouter = Router();
 
@@ -24,7 +24,7 @@ circlesRouter.route('/follow')
     await user.connected_circles.push(circle);
     await user.save();
 
-    bot.sendMessage(currentUser.chatId, `Вы вступили в круговорот ${circle.name}`);
+    followCircleBotMessage(currentUser, circle);
 
     res.status(200).json({circle, user})
 });
@@ -43,7 +43,7 @@ circlesRouter.route('/unfollow')
     await user.connected_circles.splice(index, 1)
     await user.save();
 
-    bot.sendMessage(currentUser.chatId, `Вы вышли из круговорота ${circle.name}`);
+    unfollowCircleBotMessage(currentUser, circle);
 
     res.status(200).json({circle, user})
 });
