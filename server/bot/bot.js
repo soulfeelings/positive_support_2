@@ -4,6 +4,7 @@ import { commonkeyboard } from './keyboards.js';
 import { commontext, errorcallback, letsgotosite, nocommand, starttext, youaddedtocommon } from './texts.js';
 import Circle from '../models/circle.model.js';
 import User from '../models/user.model.js';
+import Apeal from '../models/apeal.model.js';
 import { krugovert } from './krugovert.js';
 import { linkgenerator } from '../middleware/linkgenerator.js';
 
@@ -17,6 +18,8 @@ const bot = new TelegramBot(token, {
 bot.on('message', async (msg) => {
   const chatId = msg.chat.id;
   const { text } = msg;
+
+  if (await checkAppel(text, chatId)) return sendTimoutMessage(1000, chatId, "Ваша жалоба зарегистрирована")
 
   switch (text) {
     case '/start':
@@ -37,7 +40,7 @@ bot.on('message', async (msg) => {
         });
       });
       break;
-    case 'Войти на сайт':
+    case 'Войти':
       giveMeLink(chatId);
       break;
     default:
@@ -65,6 +68,23 @@ bot.on('callback_query', async (query) => {
       break;
   }
 });
+
+async function checkAppel(text, chatId) {
+  const result = text.match(/#жалоба/gm);
+  
+  if(result) {
+    try {
+      const user = await User.findOne({chatId}).exec();
+      const apeal = await Apeal.create({text, fromUser: user._id});
+      return apeal;
+    } catch (error) {
+      console.log(error);
+      bot.sendMessage(chatId, "Ошибка на сервере");
+    }
+  }
+
+  return null;
+}
 
 async function addUserToCommonGroup(id) {
   try {
