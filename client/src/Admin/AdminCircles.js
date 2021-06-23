@@ -1,10 +1,12 @@
 import { useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import axios from 'axios';
 
-import { useSelector } from 'react-redux';
 import AddImgForm from './AddImgForm';
+import {deleteCircleAC} from '../redux/actionCreators/circleAC'
 
 function AdminCircles() {
+  const dispatch = useDispatch()
   const circles = useSelector((state) => state.circles);
   const [searchItem, setSearchItem] = useState('');
   const [addForm, setAddForm] = useState(false);
@@ -12,7 +14,8 @@ function AdminCircles() {
 
   const deleteCircleHandler = (id) => {
     axios.delete(`http://localhost:4000/circle/delete/${id}`)
-    .then(res => console.log(res.data));
+    .then(res => circles.filter(el => el._id !== res.data._id))
+    .then(res => dispatch(deleteCircleAC(res)))
   };
 
   return (

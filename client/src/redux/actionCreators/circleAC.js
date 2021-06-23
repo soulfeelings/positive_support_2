@@ -1,4 +1,4 @@
-import { ADD_CIRCLE, INIT_CIRCLES, INIT_ONE_CIRCLE } from "../actiontypes";
+import { ADD_CIRCLE, INIT_CIRCLES, INIT_ONE_CIRCLE, DELETE_CIRCLE } from "../actiontypes";
 
 export const initOneCircleAC = (payload) => ({
   type: INIT_ONE_CIRCLE,
@@ -16,7 +16,7 @@ export const addCirlesAC = (payload) => ({
 })
 
 
-export const deleteCirccleAC = (payload) => ({
+export const deleteCircleAC = (payload) => ({
   type: DELETE_CIRCLE,
   payload
 })

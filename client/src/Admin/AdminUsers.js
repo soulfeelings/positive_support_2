@@ -12,7 +12,7 @@ function AdminUsers() {
     axios
       .get('http://localhost:4000/admin/getUsers')
       .then((res) => dispatch(initAllUsersAC(res.data)));
-  }, []);
+  }, [dispatch]);
 
   function banUserHandler(userId, isBan) {
     axios
