@@ -5,7 +5,7 @@ function Navigation ({name, link}) {
 
   return (
     <div className={classes.navWrapper}>
-      <Link to={link}>{name}</Link>
+      <Link className={classes.link} to={link}>{name}</Link>
     </div>
   );
 }

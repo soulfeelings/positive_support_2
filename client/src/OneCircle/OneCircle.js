@@ -8,6 +8,8 @@ import axios from 'axios';
 import { initOneCircleAC } from '../redux/actionCreators/circleAC';
 import { updateStateAC } from '../redux/actionCreators/updateStateAC';
 import './Circulation.css';
+import PortalToBody from '../Navigation/Portal';
+import Navigation from '../Navigation/Navigation';
 
 function OneCircle() {
   // const {id} = useParams();
@@ -137,6 +139,9 @@ function OneCircle() {
           </p>
         </header>
       </section>
+      <PortalToBody>
+        <Navigation name="На главную" link="/"/>
+      </PortalToBody>
     </div>
   );
 }
