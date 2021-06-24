@@ -4,7 +4,7 @@ import {
   // INIT_ADMIN,
   INIT_ALL_USERS,
   INIT_CIRCLES,
-  INIT_ONE_CIRCLE,
+  // INIT_ONE_CIRCLE,
   SET_USER,
   UNAUTHORIZED_USER,
   UPDATE_STATE,
@@ -40,17 +40,17 @@ function reducer(state = initialState, action) {
         },
       };
 
-    case INIT_ONE_CIRCLE:
-      return {
-        ...state,
-        currentCircle: action.payload,
-      };
+    // case INIT_ONE_CIRCLE:
+    //   return {
+    //     ...state,
+    //     currentCircle: action.payload,
+    //   };
 
     case UPDATE_STATE:
       return {
         ...state,
         currentUser: action.payload.user,
-        currentCircle: action.payload.circle,
+        circles: [...state.circles.map(el => el._id === action.payload.circle._id ? action.payload.circle : el )],
       };
 
     case ADD_CIRCLE:

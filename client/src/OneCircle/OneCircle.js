@@ -1,63 +1,53 @@
-import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router';
-import { useDispatch, useSelector } from 'react-redux';
-import insertStyles from '../helpers/insertStyles';
-import { oneCircleStyles } from './OneCircleStyles';
-import { getFaces } from '../helpers/getFaces';
-import axios from 'axios';
-import { initOneCircleAC } from '../redux/actionCreators/circleAC';
-import { updateStateAC } from '../redux/actionCreators/updateStateAC';
-import classes from './Circulation.module.css';
-import PortalToBody from '../Navigation/Portal';
-import Navigation from '../Navigation/Navigation';
+import axios from "axios";
+// import './Circulation.css';
+import { useEffect, useState } from "react";
+import { useParams } from "react-router";
+import { useDispatch, useSelector } from "react-redux";
+import { updateStateAC } from "../redux/actionCreators/updateStateAC";
+import { oneCircleStyles } from "./OneCircleStyles";
+import { getFaces } from "../helpers/getFaces";
+import insertStyles from "../helpers/insertStyles";
+import classes from "./Circulation.module.css";
+import PortalToBody from "../Navigation/Portal";
+import Navigation from "../Navigation/Navigation";
 
 function OneCircle() {
   const buttonStyle = { padding: "0 20px" };
 
   const circleId = useParams();
   const dispatch = useDispatch();
-  const currentCircle = useSelector((state) => state.currentCircle);
+
+  const circles = useSelector((state) => state.circles);
   const currentUser = useSelector((state) => state.currentUser);
+
+  const [currentCircle, setCurrentCircle] = useState({});
   const [isInCircle, setIsInCircle] = useState(false);
   const [users, setUsers] = useState();
 
   useEffect(() => insertStyles(oneCircleStyles), []);
 
   useEffect(() => {
+    const circ = circles?.filter((el) => el._id === circleId.circleId)[0];
+    setCurrentCircle(circ);
+    currentUser.connected_circles?.includes(circ._id || circ)
+      ? setIsInCircle(true)
+      : setIsInCircle(false);
+  }, [circles, circleId.circleId]);
+
+  useEffect(() => {
     getFaces().then((res) => setUsers(res));
     document.body.classList.add("homepage");
-    axios
-      .post("http://localhost:4000/circle/getCurrent", circleId)
-      .then((res) => dispatch(initOneCircleAC(res.data)))
-      .then((data) =>
-        data.payload.connected_users?.includes(currentUser?._id)
-          ? setIsInCircle(true)
-          : setIsInCircle(false)
-      );
-  }, [dispatch, currentUser, circleId]);
+  }, [dispatch]);
 
-  const followHandler = (e) => {
-    e.preventDefault();
+  const followHandler = (path) => {
     axios
-      .post("http://localhost:4000/circle/follow", {
+      .post(`http://localhost:4000/circle/${path}`, {
         currentUser,
-        id: currentCircle._id,
+        id: circleId.circleId,
       })
       .then((res) => dispatch(updateStateAC(res.data)))
-      .catch((err) => alert(err));
-    setIsInCircle(true);
-  };
-
-  const unfollowHandler = (e) => {
-    e.preventDefault();
-    axios
-      .post("http://localhost:4000/circle/unfollow", {
-        currentUser,
-        id: currentCircle._id,
-      })
-      .then((res) => dispatch(updateStateAC(res.data)))
-      .catch((err) => alert(err));
-    setIsInCircle(false);
+      .catch((err) => console.log(err, "+++"));
+    setIsInCircle(!isInCircle);
   };
 
   if (!currentCircle) {
@@ -79,28 +69,21 @@ function OneCircle() {
               </a>
             </h1>
             <hr />
-            <p>Чтобы подключиться к круговороту - нажмите кнопку</p>
+            <p>
+              {" "}
+              {isInCircle
+                ? "Чтобы выйти из круговорота - нажмите кнопку"
+                : "Чтобы подключиться к круговороту - нажмите кнопку"}
+            </p>
           </header>
           <footer>
-            {!isInCircle ? (
-              <a
-                style={buttonStyle}
-                href="#banner"
-                className="button circled scrolly"
-                onClick={followHandler}
-              >
-                Подключиться
-              </a>
-            ) : (
-              <a
-                style={buttonStyle}
-                href="#banner"
-                className="button circled scrolly"
-                onClick={unfollowHandler}
-              >
-                Отключиться
-              </a>
-            )}
+            <a
+              style={buttonStyle}
+              className="button circled scrolly"
+              onClick={() => followHandler(!isInCircle ? "follow" : "unfollow")}
+            >
+              {!isInCircle ? "Подключиться" : "Отключиться"}
+            </a>
           </footer>
         </div>
       </div>
@@ -135,7 +118,7 @@ function OneCircle() {
             одиноким, ощущать поддержку, которая придаст сил справится с
             трудностями. В этом круговороте мы поддерживаем друг друга, чтобы
             учиться в приподнятом настроении, легко справлятся со сложностями.
-            Подключайтесь
+            Подключайтесь!
           </p>
         </header>
       </section>
