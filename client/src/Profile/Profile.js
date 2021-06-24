@@ -23,12 +23,18 @@ function Profile(props) {
             {currentUser.firstName} {currentUser.lastName}
           </h2>
           <p className={classes.text}>{currentUser.situation}</p>
-          <p className={classes.situation_description}>* Это ваша текущая ситуация, отправляется людям вместе с вашим контактом</p>
+          <p className={classes.situation_description}>
+            * Это ваша текущая ситуация, отправляется людям вместе с вашим
+            контактом
+          </p>
           <div className={classes.input_profile}>
             <SituationForm />
           </div>
         </div>
 
+        <h2 className={classes.profile_header} style={{ fontSize: "1.5em" }}>
+          Мои круговороты
+        </h2>
         <div className={classes.wrapper}>
           {mycircles?.map((el) => {
             return (
@@ -38,7 +44,6 @@ function Profile(props) {
         </div>
       </div>
 
-      
       <BackgroundProfile />
       <PortalToBody>
         <Navigation name="На главную" link="/" />
