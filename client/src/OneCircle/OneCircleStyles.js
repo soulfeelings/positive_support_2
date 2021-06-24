@@ -25,7 +25,8 @@ body {
 	line-height: 1;
 }
 .onecircle_text {
-	padding: 1em 2.5em
+	padding: 1em 2.5em;
+  text-align: justify;
 }
 
 ol, ul {
