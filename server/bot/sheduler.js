@@ -4,7 +4,7 @@ import bot from './bot.js';
 import { krugovert } from './krugovert.js';
 
 function startSheduler() {
-  const job = shedule.scheduleJob('* * * * * *', async function() {
+  const job = shedule.scheduleJob('0 9 * * *', async function() {
     const circles = await getAllCircles();
 
     for (let i = 0; i < circles.length; i++) {
