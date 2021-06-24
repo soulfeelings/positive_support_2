@@ -10,7 +10,7 @@ import startSheduler from './bot/sheduler.js';
 
 dotenv.config();
 const app = express();
-dbConnect()//.then(() => startSheduler());
+dbConnect().then(() => startSheduler());
 
 app.use(cors());
 app.use(express.urlencoded({ extended: true }));

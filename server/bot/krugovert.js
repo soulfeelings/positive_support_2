@@ -2,21 +2,14 @@
 
 import Circle from '../models/circle.model.js';
 import arrayShuffle from 'array-shuffle';
-// import bot from './bot.js';
+import bot from './bot.js';
 
 export async function krugovert(bot, name) {
   const circ = Circle.findOne({ name })
     .populate('connected_users')
     .then((circle) => {
       const { connected_users } = circle;
-      // try {
-      //   if (connected_users.length < 2) {
-      //     throw 'В круговороте меньше двух человек';
-      //   }
-      // } catch (error) {
-      //   console.log(error, 'trycatch');
-      //   return error;
-      // }
+
       const last = checkForLeftOver(connected_users);
 
       const middle = connected_users.length / 2;
@@ -28,14 +21,14 @@ export async function krugovert(bot, name) {
       secondArray = arrayShuffle(secondArray);
 
       const shuffleSecondArray = arrayShuffle(secondArray);
-      console.log(secondArray);
+
       mailing(firstArray, secondArray);
       mailing(shuffleSecondArray, firstArray);
 
       // Если у нас нечетный список, то останется один человек и вот это для него
       if (last) {
         const randomperson = shuffleSecondArray.pop();
-        console.log(randomperson);
+        
         let message = `
           Поддержи сегодня: ${randomperson.firstName} ${randomperson.lastName}, вот его телеграм - @${randomperson.name}
         `;
@@ -45,6 +38,7 @@ export async function krugovert(bot, name) {
             Его ситуация: ${randomperson.situation}
           `;
         }
+        console.log("LAST - шлем LASTU", randomperson.chatId);
         bot.sendMessage(last.chatId, message);
 
         setTimeout(() => {
@@ -57,9 +51,9 @@ export async function krugovert(bot, name) {
               Его ситуация: ${last.situation}
             `;
           }
-
+          console.log("LAST - шлем RANDOMU", randomperson.chatId);
           bot.sendMessage(randomperson.chatId, message);
-        }, 5000);
+        }, 0);
       }
     });
 
