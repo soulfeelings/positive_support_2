@@ -18,9 +18,8 @@ function ProfileCircle({ info, currentUser }) {
   return (
     <div className={classes.item}>
       <h3>{info.name}</h3>
-      {/* <img class="picture" src={info.img}></img> */}
       <button className={classes.button}  style={{opacity: 0.8}} onClick={() => unfollowHandler(info._id)}>
-        ВЫЙТИ
+        Выйти
       </button>
     </div>
   );

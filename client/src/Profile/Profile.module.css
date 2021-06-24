@@ -78,18 +78,42 @@ img {
 
 
 .button {
-  background: #492353;
-  ;
+  /* background: #492353; */
+  background: none;
   color: white;
+  border: solid 2px white;
   border-radius: 0.5em;
   cursor: pointer;
   font-weight: 300;
 
   text-align: center;
-  font-size: 0.75em;
+  font-size: 18px;
   font-family: inherit;
 
   padding: 10px 20px;
-
   margin-top: 10px;
+
+  transition: border-radius 1s linear;
 }
+
+.button:hover {
+  border-radius: 0;
+}
+
+.button:active {
+  background: black
+}
+
+
+@media screen and (min-width: 700px) {
+  .profile {
+    padding-left: 3em;
+  }
+}
+
+@media screen and (min-width: 1000px) {
+  .profile {
+    margin-left: 8em;
+  }
+}
+
