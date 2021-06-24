@@ -2936,25 +2936,25 @@ button:disabled,
 
 .tiles article:nth-child(6n - 5):before {
   background-color: #6fc3df;
-     background-image: url("images/progr.jpg");
+ 
 
 }
 
 .tiles article:nth-child(6n - 4):before {
 		background-color: #8d82c4;
-    background-image: url("images/progr.jpg");
+    
 
 			}
 
 .tiles article:nth-child(6n - 3):before {
    background-color: #ec8d81;
-  background-image: url("images/progr.jpg");
+  
 
 }
 
 .tiles article:nth-child(6n - 2):before {
     background-color: black;
-    background-image: url("images/progr.jpg");
+    
 }
 
 .tiles article:nth-child(6n - 1):before {

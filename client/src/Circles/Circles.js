@@ -27,8 +27,13 @@ function Circles(props) {
     return (<>Loading</>);
   }
 
+  
+
   return (
     <div>
+      <style>
+        {".tiles article:before { background-color: rgba(52, 52, 52, 0.5) !important;}"}
+        </style>
       <div id="main" style={{position: "unset"}}>
         <section id="banner" className="major">
           <div className="inner">
@@ -40,7 +45,7 @@ function Circles(props) {
         </section>
         <section id="one" className="tiles">
           {circles?.map((el) => (
-            <article key={el._id}>
+            <article key={el._id} style={{backgroundImage: `url(${el.img})`, backgroundColor: "rgba(52, 52, 52, 0.8)"}}>
 
               <Link to={`/circle/${el._id}`}>
 
