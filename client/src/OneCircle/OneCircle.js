@@ -111,7 +111,7 @@ function OneCircle() {
             alt=""
             className="circulation_img"
             // src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSTdeZ9vpR27khWeaQbiYd-1ARV-XtJ7JzWBw&usqp=CAU"
-            src={currentUser.photo_url}
+            src={"images/progr.jpg"}
           />
           <div className="container_users">
             <div className="sub_container_users">

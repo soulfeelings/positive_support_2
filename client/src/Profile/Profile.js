@@ -13,7 +13,6 @@ function Profile(props) {
   const mycircles = circles.filter((c) =>
     currentUser.connected_circles.includes(c._id)
   );
-  console.log(currentUser.photo_url);
 
   useEffect(() => insertStyles(profileStyles), []);
 
