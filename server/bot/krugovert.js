@@ -35,6 +35,7 @@ export async function krugovert(bot, name) {
       // Если у нас нечетный список, то останется один человек и вот это для него
       if (last) {
         const randomperson = shuffleSecondArray.pop();
+        console.log(randomperson);
         let message = `
           Поддержи сегодня: ${randomperson.firstName} ${randomperson.lastName}, вот его телеграм - @${randomperson.name}
         `;

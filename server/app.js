@@ -6,10 +6,11 @@ import dbConnect from './utils/db_connect.js';
 import circlesRouter from './routes/circle.route.js';
 import userRouter from './routes/user.route.js';
 import adminRouter from './routes/admin.route.js';
+import startSheduler from './bot/sheduler.js';
 
 dotenv.config();
 const app = express();
-dbConnect();
+dbConnect().then(() => startSheduler());
 
 app.use(cors());
 app.use(express.urlencoded({ extended: true }));
