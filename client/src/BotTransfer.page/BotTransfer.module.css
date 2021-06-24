@@ -1,0 +1,41 @@
+html, body {
+  padding: 0;
+  margin: 0;
+}
+
+.wrapper {
+  position: fixed;
+  background-color: #348cb2;
+  width: 100%;
+  height: 100%;
+}
+
+.bg {
+  position: fixed;
+  animation: bg 60s linear infinite;
+
+  backface-visibility: hidden;
+  
+  background-repeat: repeat-x;
+
+  width: 100%;
+  height: 100%;
+}
+
+@keyframes wrapper {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes bg {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-25%);
+  }
+}
