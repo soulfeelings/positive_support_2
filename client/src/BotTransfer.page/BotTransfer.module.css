@@ -8,18 +8,64 @@ html, body {
   background-color: #348cb2;
   width: 100%;
   height: 100%;
+
+  animation: wrapper 2s linear;
 }
+
+.main {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 
 .bg {
   position: fixed;
+  top: 0;
+  left:0;
+
+  background-size: 1500px auto;
+  width: 4500px;
+
   animation: bg 60s linear infinite;
 
   backface-visibility: hidden;
-  
+  transform: translate3d(0,0,0);
   background-repeat: repeat-x;
+  background-position: left bottom;
 
-  width: 100%;
   height: 100%;
+}
+
+.button {
+  padding: 10px 20px;
+  background: none;
+  border: solid 2px white;
+  border-radius: 1em;
+  color: white;
+  font-size: 1em;
+}
+
+@media screen and (max-width: 900px) {
+  .button {
+    font-size: 0.7em;
+  }
+}
+
+@media screen and (max-height: 600px) {
+  .bg {
+    height: 120%;
+  }
+}
+
+@media screen and (max-height: 450px) {
+  .bg {
+    height: 140%;
+  }
 }
 
 @keyframes wrapper {
@@ -33,9 +79,9 @@ html, body {
 
 @keyframes bg {
   0% {
-    transform: translateX(0);
+    transform: translate3d(0,0,0);
   }
   100% {
-    transform: translateX(-25%);
+    transform: translate3d(-1500px,0,0);
   }
 }
