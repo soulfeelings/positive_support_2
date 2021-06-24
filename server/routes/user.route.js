@@ -48,6 +48,7 @@ userRouter.post('/auth', async (req, res) => {
       { secretId: req.body.secretId },
       { $set: { secretId: '' } }
     );
+    console.log("USER", user)
     const token = await jwt.sign({ id: user._id }, process.env.SC, {
       expiresIn: '1h',
     });

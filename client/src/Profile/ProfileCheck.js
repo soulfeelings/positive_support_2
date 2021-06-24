@@ -1,24 +1,11 @@
-import React, { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
-import { useHistory, useParams } from 'react-router';
-import { authFunction } from '../helpers/authFunction';
+import React from "react";
+import { useHistory } from "react-router";
 
 function ProfileCheck(props) {
+  const history = useHistory();
+  history.push("/");
 
-  const dispatch = useDispatch();
-  const history = useHistory()
-  const { secretId } = useParams();
-
-  useEffect(() => {
-    authFunction(secretId, dispatch)
-    history.push('/')
-  }, [secretId, history, dispatch]);
-
-  return (
-    <div>
-      ProfileChecking
-    </div>
-  );
+  return <div>ProfileChecking</div>;
 }
 
 export default ProfileCheck;

@@ -1,10 +1,8 @@
 import {
   ADD_CIRCLE,
   DELETE_CIRCLE,
-  // INIT_ADMIN,
   INIT_ALL_USERS,
   INIT_CIRCLES,
-  // INIT_ONE_CIRCLE,
   SET_USER,
   UNAUTHORIZED_USER,
   UPDATE_STATE,
@@ -12,7 +10,6 @@ import {
   REQUEST_UPDATE_SUTUATION,
   REQUEST_UPDATE_SUTUATION_ERROR,
   REQUEST_UPDATE_SUTUATION_SUCCESS,
-  CIRCLE_GO_OUT,
 } from "./actiontypes";
 
 const initialState = {
@@ -22,11 +19,26 @@ const initialState = {
 
 function reducer(state = initialState, action) {
   switch (action.type) {
+
+    // Круговороты
     case INIT_CIRCLES:
       return {
         ...state,
         circles: action.payload.data.data,
       };
+    case ADD_CIRCLE:
+      return {
+        ...state,
+        circles: [...state.circles, action.payload],
+      };
+    case DELETE_CIRCLE:
+      return {
+        ...state,
+        circles: action.payload,
+      };
+    
+
+    // Пользователи
     case SET_USER:
       return {
         ...state,
@@ -39,26 +51,6 @@ function reducer(state = initialState, action) {
           status: "unauthorized",
         },
       };
-
-    // case INIT_ONE_CIRCLE:
-    //   return {
-    //     ...state,
-    //     currentCircle: action.payload,
-    //   };
-
-    case UPDATE_STATE:
-      return {
-        ...state,
-        currentUser: action.payload.user,
-        circles: [...state.circles.map(el => el._id === action.payload.circle._id ? action.payload.circle : el )],
-      };
-
-    case ADD_CIRCLE:
-      return {
-        ...state,
-        circles: [...state.circles, action.payload],
-      };
-
     case INIT_ALL_USERS:
       return {
         ...state,
@@ -71,12 +63,16 @@ function reducer(state = initialState, action) {
         users: action.payload,
       };
 
-    case DELETE_CIRCLE:
+
+    // Общее - и юзеры и круговроты
+    case UPDATE_STATE:
       return {
         ...state,
-        circles: action.payload,
+        currentUser: action.payload.user,
+        circles: [...state.circles.map(el => el._id === action.payload.circle._id ? action.payload.circle : el )],
       };
 
+      
     // Ситуация пользователя
     case REQUEST_UPDATE_SUTUATION:
       return state;
