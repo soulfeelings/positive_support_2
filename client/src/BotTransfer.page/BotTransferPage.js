@@ -1,3 +1,4 @@
+import Logo from "../Logo/Logo";
 import classes from "./BotTransfer.module.css";
 import bgimg from "./images/bg.jpg";
 
@@ -8,6 +9,7 @@ function BotTransferPage() {
 
   return (
     <div className={classes.wrapper}>
+      <Logo />
       <div
         className={classes.bg}
         style={{ backgroundImage: `url(${bgimg})` }}
