@@ -4,14 +4,14 @@ import { useDispatch, useSelector } from 'react-redux';
 import BotTransferPage from './BotTransfer.page/BotTransferPage';
 import checkBan from './helpers/checkBan';
 import fetchInitCircles from './redux/fetches/fetchInitCircles'
-import axiosAuth from './redux/fetches/axiosAuth';
 import Routes from './Routes';
+import { authFunction } from './helpers/authFunction';
 
 function App() {
   const dispatch = useDispatch();
   const currentUser = useSelector((state) => state.currentUser);
   
-  useEffect(() => dispatch(axiosAuth()), [dispatch]);
+  useEffect(() => authFunction(dispatch), [dispatch]);
   useEffect(() => checkBan(currentUser), [currentUser]);
   useEffect(() => dispatch(fetchInitCircles()), [dispatch]);
 

@@ -1,16 +1,13 @@
-import axios from 'axios';
-import { setUserAC } from '../redux/actionCreators/userActionCreators';
+import axiosAuth from '../redux/fetches/axiosAuth';
+import axiosAuthToken from '../redux/fetches/axiosAuthToken';
 
 
-export const authFunction = (secretId, dispatch) => {
-  
-  if (secretId) {
-    
-    axios
-      .post('http://localhost:4000/user/auth', { secretId })
-      .then((res) => dispatch(setUserAC(res.data)))
-      .then((res) =>  localStorage.setItem('token', res.payload.token))
-      .catch((err) => alert('Cсылка неверна или устарела! Пожулайста, запросите новую у бота.'))
-      // .then((window.location = 'http://localhost:3000/'));
-  }
+export const authFunction = (dispatch) => {
+  const path = document.location.pathname.match(/profile\/(.)*/);
+    if(path) {
+      const secretId = path[0].slice(8);
+      dispatch(axiosAuthToken(secretId));
+    } else {
+      dispatch(axiosAuth())
+    }
 };
