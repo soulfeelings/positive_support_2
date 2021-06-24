@@ -1,7 +1,7 @@
 import { Router } from 'express';
 import multer from 'multer';
 import path from 'path';
-// import bot from '../bot/bot.js';
+import bot from '../bot/bot.js';
 import { krugovert } from '../bot/krugovert.js';
 import Circle from '../models/circle.model.js';
 import User from '../models/user.model.js';

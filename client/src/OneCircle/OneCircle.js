@@ -59,9 +59,15 @@ function OneCircle() {
   }
 
   return (
+
     <div id="page-wrapper">
-      <div id="header" style={{ backgroundImage: `url(${currentCircle.img})` }}>
+      <style>
+        {".imgDiv { background-image: url(https://4tololo.ru/sites/default/files/images/201304081907339225.jpg); height: 100%; width: 100%; position: absolute; top: 0; bottom: 0; background-size: cover; filter: brightness(0.5); background-position: center;"}
+        </style>
+      <div id="header" style={{ position: `relative` }} >
+        <div style={{ backgroundImage: `url(${currentCircle.img})` }} className="imgDiv"></div>
         <div className="inner">
+       
           <header>
             <h1>
               <a href="index.html" id="logo">
@@ -69,12 +75,7 @@ function OneCircle() {
               </a>
             </h1>
             <hr />
-            <p>
-              {" "}
-              {isInCircle
-                ? "Чтобы выйти из круговорота - нажмите кнопку"
-                : "Чтобы подключиться к круговороту - нажмите кнопку"}
-            </p>
+            
           </header>
           <footer>
             <a
@@ -85,9 +86,11 @@ function OneCircle() {
               {!isInCircle ? "Подключиться" : "Отключиться"}
             </a>
           </footer>
+          
+             
         </div>
+       
       </div>
-
       <section id="banner">
         <div className={classes.circulation}>
           <img
@@ -130,3 +133,16 @@ function OneCircle() {
 }
 
 export default OneCircle;
+
+
+
+// element.style {
+//   background-image: url(https://4tololo.ru/sites/default/files/images/201304081907339225.jpg);
+//   height: 100%;
+//   width: 100%;
+//   position: absolute;
+//   top: 0;
+//   bottom: 0;
+//   background-size: cover;
+//   filter: brightness(0.5);
+// }
