@@ -47,12 +47,12 @@ p {
 
 }
 
-html,
+/* html,
 body {
   height: 100%;
   display: flex;
   justify-content: center;
-}
+} */
 
 .block {
   width: 150px;
