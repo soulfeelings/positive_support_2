@@ -1,0 +1,95 @@
+* {
+  box-sizing: border-box;
+}
+.input_profile {
+  margin-bottom: 5em;
+}
+
+.profile {
+  padding-left: 1em;
+  padding-right: 1em;
+  max-width: 30em;
+  font-family: "Roboto", sans-serif
+}
+.profile_button {
+  font-style: normal;
+  font-weight: bold;
+  color: rgba(255, 255, 255, 0.5);
+  padding: 1em 2em;
+  border-radius: 1em;
+  border: none;
+  background-color: rgba(182, 116, 176, 0.5);
+  cursor: pointer;
+  outline: none;
+}
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  padding-bottom: 100px;
+}
+.profile_header {
+  font-size: 2.25em;
+  margin-top: 5em;
+  font-weight: 700;
+  color: rgba(255, 255, 255);
+  text-align: left;
+}
+img {
+  border-radius: 50%;
+  width: 10em;
+}
+
+.picture {
+  margin-bottom: 3em;
+}
+.text {
+  color: rgba(255, 255, 255, 1 );
+  position: relative;
+  margin: 0 0 1.5em 0;
+  padding-left: 1em;
+  padding-bottom: 1em;
+  padding-top: 1em;
+  padding-right: 1em;
+  border-bottom: solid white;
+  border-left: solid white;
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.item {
+  display: flex;
+  justify-content: space-between;
+  color: rgba(255, 255, 255, 0.5);
+
+  font-family: inherit;
+  font-size: 0.7em;
+  color: white;
+}
+
+.situation_description {
+  color: white;
+  font-size: 0.7em;
+  max-width: 30em; 
+  margin: 20px 0px;
+  padding: 0;
+  padding-right: 10px;
+}
+
+
+.button {
+  background: #492353;
+  ;
+  color: white;
+  border-radius: 0.5em;
+  cursor: pointer;
+  font-weight: 300;
+
+  text-align: center;
+  font-size: 0.75em;
+  font-family: inherit;
+
+  padding: 10px 20px;
+
+  margin-top: 10px;
+}

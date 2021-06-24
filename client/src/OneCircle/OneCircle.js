@@ -1,15 +1,15 @@
-import React, { useEffect, useState } from "react";
-import { useParams } from "react-router";
-import { useDispatch, useSelector } from "react-redux";
-import insertStyles from "../helpers/insertStyles";
-import { oneCircleStyles } from "./OneCircleStyles";
-import { getFaces } from "../helpers/getFaces";
-import axios from "axios";
-import { initOneCircleAC } from "../redux/actionCreators/circleAC";
-import { updateStateAC } from "../redux/actionCreators/updateStateAC";
-import "./Circulation.css";
-import PortalToBody from "../Navigation/Portal";
-import Navigation from "../Navigation/Navigation";
+import React, { useEffect, useState } from 'react';
+import { useParams } from 'react-router';
+import { useDispatch, useSelector } from 'react-redux';
+import insertStyles from '../helpers/insertStyles';
+import { oneCircleStyles } from './OneCircleStyles';
+import { getFaces } from '../helpers/getFaces';
+import axios from 'axios';
+import { initOneCircleAC } from '../redux/actionCreators/circleAC';
+import { updateStateAC } from '../redux/actionCreators/updateStateAC';
+import classes from './Circulation.module.css';
+import PortalToBody from '../Navigation/Portal';
+import Navigation from '../Navigation/Navigation';
 
 function OneCircle() {
   const buttonStyle = { padding: "0 20px" };
@@ -106,26 +106,26 @@ function OneCircle() {
       </div>
 
       <section id="banner">
-        <div className="circulation">
+        <div className={classes.circulation}>
           <img
             alt=""
-            className="circulation_img"
+            className={classes.circulation_img}
             // src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSTdeZ9vpR27khWeaQbiYd-1ARV-XtJ7JzWBw&usqp=CAU"
             src={"images/progr.jpg"}
           />
-          <div className="container_users">
-            <div className="sub_container_users">
+          <div className={classes.container_users}>
+            <div className={classes.sub_container_users}>
               {users?.map((el, i) => (
-                <div key={Date.now() + i} className="block">
-                  <div className="square">
-                    <img alt="" className="square" src={el} />
+                <div key={Date.now() + i} className={classes.block}>
+                  <div className={classes.square}>
+                    <img alt="" className={classes.square} src={el} />
                   </div>
                 </div>
               ))}
             </div>
           </div>
         </div>
-        <header className="description_circle">
+        <header className={classes.description_circle}>
           <h2>
             Ты можешь присоединиться к <strong>{currentCircle.name}</strong>.
           </h2>

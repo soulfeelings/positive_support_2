@@ -1,0 +1,55 @@
+.bg {
+  position: fixed;
+  background: black;
+
+  height: 100%;
+  width: 100%;
+  top: 0;
+  left: 0;
+
+  z-index: -100;
+}
+
+.blackPaper {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  opacity: 0.5;
+  background: black;
+  z-index: -50;
+}
+
+.bgImage {
+  background-position: center center;
+  background-size: cover;
+
+  position: absolute;
+
+  width: 150%;
+  height: 100%;
+
+  visibility: hidden;
+  z-index: -95;
+  opacity: 0;
+  transition: opacity 1s ease;
+
+  animation: bg 30s linear infinite
+}
+
+.visible {
+  visibility: visible;
+  opacity: 1;
+}
+
+.top {
+  z-index: -65;
+}
+
+@keyframes bg {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-25%);
+  }
+}

@@ -2,6 +2,7 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { updateStateAC } from "../redux/actionCreators/updateStateAC";
 import axios from "axios";
+import classes from './Profile.module.css'
 
 function ProfileCircle({ info, currentUser }) {
   const dispatch = useDispatch();
@@ -15,13 +16,10 @@ function ProfileCircle({ info, currentUser }) {
       .catch((err) => alert(err));
   };
   return (
-    <div className="item">
+    <div className={classes.item}>
       <h3>{info.name}</h3>
       {/* <img class="picture" src={info.img}></img> */}
-      <button
-        className="profile_button"
-        onClick={() => unfollowHandler(info._id)}
-      >
+      <button className={classes.button}  style={{opacity: 0.8}} onClick={() => unfollowHandler(info._id)}>
         ВЫЙТИ
       </button>
     </div>
