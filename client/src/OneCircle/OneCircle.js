@@ -110,8 +110,8 @@ function OneCircle() {
           <img
             alt=""
             className={classes.circulation_img}
-            // src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSTdeZ9vpR27khWeaQbiYd-1ARV-XtJ7JzWBw&usqp=CAU"
-            src={currentUser.photo_url}
+            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSTdeZ9vpR27khWeaQbiYd-1ARV-XtJ7JzWBw&usqp=CAU"
+            // src={currentUser.photo_url}
           />
           <div className={classes.container_users}>
             <div className={classes.sub_container_users}>
