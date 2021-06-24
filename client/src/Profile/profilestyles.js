@@ -6,9 +6,8 @@ export const profileStyles = `
 
 *
 {
-		box-sizing: border-box;
-  background-color: blueviolet;
-	}
+	box-sizing: border-box;
+}
 .input_profile {
   margin-bottom: 5em;
 }

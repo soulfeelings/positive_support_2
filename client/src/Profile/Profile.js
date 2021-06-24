@@ -6,6 +6,7 @@ import React, { useEffect, useState } from "react";
 import ProfileCircle from "./ProfileCircle";
 import { profileStyles } from "./profilestyles.js";
 import insertStyles from "../helpers/insertStyles";
+import BackgroundProfile from './Background/BackgroundProfile';
 
 
 function Profile(props) {
@@ -38,6 +39,7 @@ function Profile(props) {
           );
         })}
       </div>
+      <BackgroundProfile />
       <PortalToBody>
         <Navigation name="На главную" link="/"/>
       </PortalToBody>
