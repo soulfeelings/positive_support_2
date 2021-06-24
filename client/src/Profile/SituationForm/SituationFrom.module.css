@@ -1,0 +1,42 @@
+.situation {
+  margin-top: 3em;
+
+  width: 100%;
+
+  min-height: 10em;
+
+  background: none;
+
+  border-radius: 0.5em;
+  border: solid white 2px;
+
+  padding: 10px;
+
+  font-family: inherit;
+  font-weight: 300;
+  font-size: 1em;
+
+  transition: background 1s linear;
+}
+
+.situation:focus {
+  background: white;
+  outline: none;
+}
+
+.button {
+  background: #492353;
+  ;
+  color: white;
+  border-radius: 0.5em;
+  cursor: pointer;
+  font-weight: 300;
+
+  text-align: center;
+  font-size: 0.75em;
+  font-family: inherit;
+
+  padding: 10px 20px;
+
+  margin-top: 10px;
+}

@@ -1,6 +1,7 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { edit_situation } from '../helpers/actions';
-import fetchSituation from '../redux/fetches/fetchSituation';
+import { edit_situation } from '../../helpers/actions';
+import fetchSituation from '../../redux/fetches/fetchSituation';
+import classes from './SituationFrom.module.css'
 
 function SituationForm() {
   const dispatch = useDispatch();
@@ -27,9 +28,9 @@ function SituationForm() {
 
   return (
     <form onSubmit={handleSubmit} action={edit_situation}>
-      <textarea name="situationInput"></textarea>
+      <textarea className={classes.situation} name="situationInput"></textarea>
       <br />
-      <button>Отправить</button>
+      <button className={classes.button}>Изменить ситуацию</button>
     </form>
   );
 }
