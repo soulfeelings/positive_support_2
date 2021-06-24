@@ -2214,8 +2214,8 @@ input, select, textarea {
 
 		#header .button {
 			display: inline-block;
-			border-radius: 100%;
-			width: 4.5em;
+      /* border-radius: 100%; */
+			/* width: 4.5em; */
 			height: 4.5em;
 			line-height: 4.5em;
 			text-align: center;

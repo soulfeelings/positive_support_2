@@ -1,18 +1,18 @@
-import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router';
-import { useDispatch, useSelector } from 'react-redux';
-import insertStyles from '../helpers/insertStyles';
-import { oneCircleStyles } from './OneCircleStyles';
-import { getFaces } from '../helpers/getFaces';
-import axios from 'axios';
-import { initOneCircleAC } from '../redux/actionCreators/circleAC';
-import { updateStateAC } from '../redux/actionCreators/updateStateAC';
-import './Circulation.css';
+import React, { useEffect, useState } from "react";
+import { useParams } from "react-router";
+import { useDispatch, useSelector } from "react-redux";
+import insertStyles from "../helpers/insertStyles";
+import { oneCircleStyles } from "./OneCircleStyles";
+import { getFaces } from "../helpers/getFaces";
+import axios from "axios";
+import { initOneCircleAC } from "../redux/actionCreators/circleAC";
+import { updateStateAC } from "../redux/actionCreators/updateStateAC";
+import "./Circulation.css";
+import PortalToBody from "../Navigation/Portal";
+import Navigation from "../Navigation/Navigation";
 
 function OneCircle() {
-  // const {id} = useParams();
-  // const circle = useSelector((state) => state.circles.filter((c => c._id === id))[0]);
-  // console.log(circle);
+  const buttonStyle = { padding: "0 20px" };
 
   const circleId = useParams();
   const dispatch = useDispatch();
@@ -25,9 +25,9 @@ function OneCircle() {
 
   useEffect(() => {
     getFaces().then((res) => setUsers(res));
-    document.body.classList.add('homepage');
+    document.body.classList.add("homepage");
     axios
-      .post('http://localhost:4000/circle/getCurrent', circleId)
+      .post("http://localhost:4000/circle/getCurrent", circleId)
       .then((res) => dispatch(initOneCircleAC(res.data)))
       .then((data) =>
         data.payload.connected_users?.includes(currentUser?._id)
@@ -39,7 +39,7 @@ function OneCircle() {
   const followHandler = (e) => {
     e.preventDefault();
     axios
-      .post('http://localhost:4000/circle/follow', {
+      .post("http://localhost:4000/circle/follow", {
         currentUser,
         id: currentCircle._id,
       })
@@ -51,7 +51,7 @@ function OneCircle() {
   const unfollowHandler = (e) => {
     e.preventDefault();
     axios
-      .post('http://localhost:4000/circle/unfollow', {
+      .post("http://localhost:4000/circle/unfollow", {
         currentUser,
         id: currentCircle._id,
       })
@@ -79,24 +79,26 @@ function OneCircle() {
               </a>
             </h1>
             <hr />
-            <p>Чтобы подключиться к круговороту - нажмите Start</p>
+            <p>Чтобы подключиться к круговороту - нажмите кнопку</p>
           </header>
           <footer>
             {!isInCircle ? (
               <a
+                style={buttonStyle}
                 href="#banner"
                 className="button circled scrolly"
                 onClick={followHandler}
               >
-                Start
+                Подключиться
               </a>
             ) : (
               <a
+                style={buttonStyle}
                 href="#banner"
                 className="button circled scrolly"
                 onClick={unfollowHandler}
               >
-                Stop
+                Отключиться
               </a>
             )}
           </footer>
@@ -109,7 +111,7 @@ function OneCircle() {
             alt=""
             className="circulation_img"
             // src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSTdeZ9vpR27khWeaQbiYd-1ARV-XtJ7JzWBw&usqp=CAU"
-            src={currentCircle?.img}
+            src={currentUser.photo_url}
           />
           <div className="container_users">
             <div className="sub_container_users">
@@ -123,7 +125,7 @@ function OneCircle() {
             </div>
           </div>
         </div>
-        <header className='description_circle'>
+        <header className="description_circle">
           <h2>
             Ты можешь присоединиться к <strong>{currentCircle.name}</strong>.
           </h2>
@@ -137,6 +139,9 @@ function OneCircle() {
           </p>
         </header>
       </section>
+      <PortalToBody>
+        <Navigation name="На главную" link="/" />
+      </PortalToBody>
     </div>
   );
 }

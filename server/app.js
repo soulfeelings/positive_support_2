@@ -4,7 +4,8 @@ import dotenv from 'dotenv';
 import dbConnect from './utils/db_connect.js';
 
 import circlesRouter from './routes/circle.route.js';
-import authRouter from './routes/auth.route.js';
+import userRouter from './routes/user.route.js';
+import adminRouter from './routes/admin.route.js';
 
 dotenv.config();
 const app = express();
@@ -16,7 +17,8 @@ app.use(express.json());
 app.use(express.static('public'))
 
 app.use('/circle', circlesRouter);
-app.use('/user', authRouter)
+app.use('/user', userRouter);
+app.use('/admin', adminRouter)
 
 
 export default app;
