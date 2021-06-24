@@ -1,20 +1,19 @@
+// Весь стейт
 export const UPDATE_STATE= "UPDATE_STATE"
+
+// Users
 export const SET_USER = "SET_USER";
 export const INIT_ALL_USERS="INIT_ALL_USERS"
 export const UNAUTHORIZED_USER = "UNAUTHORIZED_USER"
+export const UPDATE_USER="UPDATE_USER"
 
-export const INIT_ADMIN="INIT_ADMIN"
-
+// Circles
 export const INIT_CIRCLES = "INIT_CIRCLES";
 export const INIT_ONE_CIRCLE = "INIT_ONE_CIRCLE"
 export const ADD_CIRCLE="ADD_CIRCLE"
-export const UPDATE_USER="UPDATE_USER"
 export const DELETE_CIRCLE="DELETE_CIRCLE"
 
 // Обновление ситуации пользователя
 export const REQUEST_UPDATE_SUTUATION = "REQUEST_UPDATE_SUTUATION";
 export const REQUEST_UPDATE_SUTUATION_SUCCESS = "REQUEST_UPDATE_SUTUATION_SUCCESS";
 export const REQUEST_UPDATE_SUTUATION_ERROR = "REQUEST_UPDATE_SUTUATION_ERROR";
-
-
-export const CIRCLE_GO_OUT= "CIRCLE_GO_OUT"

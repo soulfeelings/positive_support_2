@@ -51,12 +51,6 @@ function reducer(state = initialState, action) {
           status: "unauthorized",
         },
       };
-    case UPDATE_STATE:
-      return {
-        ...state,
-        currentUser: action.payload.user,
-        circles: [...state.circles.map(el => el._id === action.payload.circle._id ? action.payload.circle : el )],
-      };
     case INIT_ALL_USERS:
       return {
         ...state,
@@ -69,8 +63,16 @@ function reducer(state = initialState, action) {
         users: action.payload,
       };
 
-    
 
+    // Общее - и юзеры и круговроты
+    case UPDATE_STATE:
+      return {
+        ...state,
+        currentUser: action.payload.user,
+        circles: [...state.circles.map(el => el._id === action.payload.circle._id ? action.payload.circle : el )],
+      };
+
+      
     // Ситуация пользователя
     case REQUEST_UPDATE_SUTUATION:
       return state;
