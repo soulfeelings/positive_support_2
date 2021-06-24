@@ -32,7 +32,10 @@ function Profile(props) {
           </div>
         </div>
 
-        <h2 className={classes.profile_header} style={{ fontSize: "1.5em" }}>
+        <h2
+          className={classes.profile_header}
+          style={{ fontSize: "1.5em", border: "dashed white 2px", padding: 10 }}
+        >
           Мои круговороты
         </h2>
         <div className={classes.wrapper}>
