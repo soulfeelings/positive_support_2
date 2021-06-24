@@ -4,7 +4,7 @@ const dbConnectionAdress = process.env.DB;
 
 export default async function dbConnect() {
   try {
-    await mongoose.connect(
+    return await mongoose.connect(
       dbConnectionAdress,
       {
         useNewUrlParser: true,

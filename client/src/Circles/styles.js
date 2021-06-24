@@ -218,6 +218,52 @@ textarea {
   letter-spacing: 0.025em;
   line-height: 1.65;
 }
+.admin_header {
+  display: flex;
+  justify-content: center;
+  width: 20em;
+  gap: 25px;
+}
+.Container {
+  margin-top: 10em;
+}
+
+#root>button {
+  margin-left: 1em;
+}
+.input {
+      appearance: none;
+    background: rgba(212, 212, 255, 0.035);
+    border: none;
+    border-radius: 0;
+    color: inherit;
+    display: block;
+    outline: 0;
+    padding: 0 1em;
+    text-decoration: none;
+    width: 100%;
+
+}
+.loadFileDiv {
+  width: max-content;
+  padding: 0 1em;
+}
+
+.list {
+  width: 60em;
+  display: flex;
+  justify-content: space-between;
+  gap: 2em;
+  padding: 0 1em;
+
+}
+.list * {
+  margin-top: 1em;
+}
+
+.circle {
+  width: 10em;
+}
 
 @media screen and (max-width: 1680px) {
   body,
