@@ -2,7 +2,7 @@
 
 import Circle from '../models/circle.model.js';
 import arrayShuffle from 'array-shuffle';
-import bot from './bot.js';
+// import bot from './bot.js';
 
 export async function krugovert(bot, name) {
   const circ = Circle.findOne({ name })

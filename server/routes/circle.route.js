@@ -1,7 +1,7 @@
 import { Router } from 'express';
 import multer from 'multer';
 import path from 'path';
-import bot from '../bot/bot.js';
+// import bot from '../bot/bot.js';
 import { krugovert } from '../bot/krugovert.js';
 import Circle from '../models/circle.model.js';
 import User from '../models/user.model.js';
@@ -28,14 +28,14 @@ circlesRouter.route('/').get((req, res) => {
 });
 
 circlesRouter.route('/follow').post(async (req, res) => {
-  const { currentUser } = req.body;
+  const { currentUser, id } = req.body;
 
-  const circle = await Circle.findById(req.body.id);
+  const circle = await Circle.findById(id);
   await circle.connected_users.push(currentUser);
   await circle.save();
 
   const user = await User.findById(currentUser._id);
-  await user.connected_circles.push(circle);
+  await user.connected_circles.push(circle._id);
   await user.save();
   
   followCircleBotMessage(currentUser, circle);
@@ -44,15 +44,15 @@ circlesRouter.route('/follow').post(async (req, res) => {
 });
 
 circlesRouter.route('/unfollow').post(async (req, res) => {
-  const { currentUser } = req.body;
+  const { currentUser, id } = req.body;
 
-  const circle = await Circle.findById(req.body.id);
+  const circle = await Circle.findById(id);
   const idx = circle.connected_users.indexOf(currentUser._id);
   await circle.connected_users.splice(idx, 1);
   await circle.save();
 
   const user = await User.findById(currentUser._id);
-  const index = user.connected_circles.indexOf(req.body.id);
+  const index = user.connected_circles.indexOf(id);
   await user.connected_circles.splice(index, 1);
   await user.save();
 
