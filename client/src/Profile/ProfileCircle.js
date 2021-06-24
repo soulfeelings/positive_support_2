@@ -1,5 +1,6 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
+import classes from './Profile.module.css'
 
 function ProfileCircle({ info, currentUser }) {
   const dispatch = useDispatch();
@@ -26,10 +27,10 @@ function ProfileCircle({ info, currentUser }) {
       });
   };
   return (
-    <div className="item">
+    <div className={classes.item}>
       <h3>{info.name}</h3>
       {/* <img class="picture" src={info.img}></img> */}
-      <button className="profile_button" onClick={() => goout(info._id)}>
+      <button className={classes.button}  style={{opacity: 0.8}} onClick={() => goout(info._id)}>
         ВЫЙТИ
       </button>
     </div>

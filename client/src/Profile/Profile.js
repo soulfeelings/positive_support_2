@@ -28,15 +28,17 @@ function Profile(props) {
             <SituationForm />
           </div>
         </div>
+
+        <div className={classes.wrapper}>
+          {mycircles?.map((el) => {
+            return (
+              <ProfileCircle currentUser={currentUser} info={el} key={el._id} />
+            );
+          })}
+        </div>
       </div>
 
-      <div className={classes.wrapper}>
-        {mycircles?.map((el) => {
-          return (
-            <ProfileCircle currentUser={currentUser} info={el} key={el._id} />
-          );
-        })}
-      </div>
+      
       <BackgroundProfile />
       <PortalToBody>
         <Navigation name="На главную" link="/" />

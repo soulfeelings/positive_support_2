@@ -24,19 +24,4 @@
   outline: none;
 }
 
-.button {
-  background: #492353;
-  ;
-  color: white;
-  border-radius: 0.5em;
-  cursor: pointer;
-  font-weight: 300;
 
-  text-align: center;
-  font-size: 0.75em;
-  font-family: inherit;
-
-  padding: 10px 20px;
-
-  margin-top: 10px;
-}

@@ -26,6 +26,8 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
+
+  padding-bottom: 100px;
 }
 .profile_header {
   font-size: 2.25em;
@@ -58,10 +60,11 @@ img {
 .item {
   display: flex;
   justify-content: space-between;
-  width: 25em;
-  padding: 2em;
-  margin: 0 auto;
   color: rgba(255, 255, 255, 0.5);
+
+  font-family: inherit;
+  font-size: 0.7em;
+  color: white;
 }
 
 .situation_description {
@@ -71,4 +74,22 @@ img {
   margin: 20px 0px;
   padding: 0;
   padding-right: 10px;
+}
+
+
+.button {
+  background: #492353;
+  ;
+  color: white;
+  border-radius: 0.5em;
+  cursor: pointer;
+  font-weight: 300;
+
+  text-align: center;
+  font-size: 0.75em;
+  font-family: inherit;
+
+  padding: 10px 20px;
+
+  margin-top: 10px;
 }

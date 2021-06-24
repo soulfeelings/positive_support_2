@@ -14,10 +14,15 @@ dbConnect();
 app.use(cors());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+app.use(express.static('public'))
 
 app.use('/circle', circlesRouter);
 app.use('/user', userRouter);
 app.use('/admin', adminRouter)
+
+app.get('/', (req, res) => {
+  res.sendFile('./public/index.html');
+})
 
 
 export default app;
