@@ -2,11 +2,11 @@ import { useSelector } from "react-redux";
 import Navigation from "../Navigation/Navigation";
 import PortalToBody from "../Navigation/Portal";
 import SituationForm from "./SituationForm/SituationForm";
-import React, { useEffect, useState } from "react";
 import ProfileCircle from "./ProfileCircle";
 import classes from "./Profile.module.css";
 
 import BackgroundProfile from "./Background/BackgroundProfile";
+import Logo from "../Logo/Logo";
 
 function Profile(props) {
   const currentUser = useSelector((state) => state.currentUser);
@@ -17,6 +17,7 @@ function Profile(props) {
 
   return currentUser ? (
     <>
+        <Logo />
       <div className={classes.profile}>
         <div className={classes.container}>
           <h2 className={classes.profile_header}>

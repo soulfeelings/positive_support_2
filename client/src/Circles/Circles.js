@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import insertStyles from "../helpers/insertStyles";
+import Logo from "../Logo/Logo";
 import Navigation from "../Navigation/Navigation";
 import PortalToBody from "../Navigation/Portal";
 import { circlesStyles } from "./styles";
@@ -31,6 +32,7 @@ function Circles(props) {
 
   return (
     <div>
+      <Logo />
       <style>
         {".tiles article:before { background-color: rgba(52, 52, 52, 0.5) !important;}"}
         </style>
