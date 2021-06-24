@@ -10,13 +10,14 @@ import { authFunction } from './helpers/authFunction';
 function App() {
   const dispatch = useDispatch();
   const currentUser = useSelector((state) => state.currentUser);
+  const circles = useSelector((state) => state.circles);
   
   useEffect(() => authFunction(dispatch), [dispatch]);
   useEffect(() => checkBan(currentUser), [currentUser]);
   useEffect(() => dispatch(fetchInitCircles()), [dispatch]);
 
-
-  if(!Object.values(currentUser).length) {
+  //  Не рендерим ничего пока не подгрузим - авторизацю и стейт круговоротов
+  if(!Object.values(currentUser).length || !circles.length) {
     return (<></>);
   }
 
