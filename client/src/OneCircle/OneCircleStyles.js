@@ -24,6 +24,9 @@ footer, header, hgroup, menu, nav, section {
 body {
 	line-height: 1;
 }
+.onecircle_text {
+	padding: 1em 2.5em
+}
 
 ol, ul {
 	list-style: none;
@@ -3126,6 +3129,9 @@ input, select, textarea {
 					.carousel article .image {
 						margin-bottom: 2em;
 					}
+			.onecircle_text {
+			padding: 1em 1em
+			}
 
 	}
 

@@ -94,7 +94,7 @@ function OneCircle() {
             alt=""
             className={classes.circulation_img}
             // src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSTdeZ9vpR27khWeaQbiYd-1ARV-XtJ7JzWBw&usqp=CAU"
-            src={"images/progr.jpg"}
+            src={"images/avatar.png"}
           />
           <div className={classes.container_users}>
             <div className={classes.sub_container_users}>
@@ -112,13 +112,13 @@ function OneCircle() {
           <h2>
             Ты можешь присоединиться к <strong>{currentCircle.name}</strong>.
           </h2>
-          <p>
-            Мы все с вами учились. И если вспомнить, то бывали времена, когда
-            учеба дается сложно. В такие моменты очень хочется ощущать себя не
-            одиноким, ощущать поддержку, которая придаст сил справится с
-            трудностями. В этом круговороте мы поддерживаем друг друга, чтобы
-            учиться в приподнятом настроении, легко справлятся со сложностями.
-            Подключайтесь!
+          <p className="onecircle_text">
+            Мы все с вами учились. И если вспомнить, то бывали времена, когда{" "}
+            <strong>{currentCircle.name}</strong> дается сложно. В такие моменты
+            очень хочется ощущать себя не одиноким, ощущать поддержку, которая
+            придаст сил справится с трудностями. В этом круговороте мы
+            поддерживаем друг друга, чтобы учиться в приподнятом настроении,
+            легко справлятся со сложностями. Подключайтесь!
           </p>
         </header>
       </section>
