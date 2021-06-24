@@ -1,0 +1,20 @@
+{
+  "name": "positive_support_2",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "cd client && npm i && npm run build",
+    "start": "cd server && npm i && npm start"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/soulfeelings/positive_support_2.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/soulfeelings/positive_support_2/issues"
+  },
+  "homepage": "https://github.com/soulfeelings/positive_support_2#readme"
+}
