@@ -46,7 +46,9 @@ bot.on('message', async (msg) => {
           let photo_url = `https://api.telegram.org/file/bot${token}/${file_path}`; // получаем фото юзера из телеграма
           regUser({ msg, photo_url }); // регистрируем пользователя
         });
-      });
+      }).catch((err) => {
+        return bot.sendMessage(chatId, 'Похоже у вас стоят настройки приватности фотографии')
+      })
       break;
     case 'Войти':
       giveMeLink(chatId);
