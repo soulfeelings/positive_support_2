@@ -32,7 +32,6 @@ function Circles(props) {
 
   return (
     <div>
-      <Logo />
       <style>
         {".tiles article:before { background-color: rgba(52, 52, 52, 0.5) !important;}"}
         </style>
