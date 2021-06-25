@@ -2,6 +2,7 @@ import express from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
 import dbConnect from './utils/db_connect.js';
+import path from 'path';
 
 import circlesRouter from './routes/circle.route.js';
 import userRouter from './routes/user.route.js';
