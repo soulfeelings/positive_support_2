@@ -11,7 +11,6 @@ import {
 import Circle from '../models/circle.model.js';
 import User from '../models/user.model.js';
 import Apeal from '../models/apeal.model.js';
-import { krugovert } from './krugovert.js';
 import { linkgenerator } from '../middleware/linkgenerator.js';
 import saveUserSecretId from '../utils/saveUserSecretId.js';
 
@@ -19,8 +18,6 @@ const token = process.env.BOT_TOKEN;
 const bot = new TelegramBot(token, {
   polling: true,
 });
-
-// krugovert(bot);
 
 bot.on('message', async (msg) => {
   const chatId = msg.chat.id;
@@ -38,9 +35,12 @@ bot.on('message', async (msg) => {
         return bot.sendMessage(chatId, 'А вы уже с нами:)');
       }
       let userProfile = bot.getUserProfilePhotos(msg.from.id);
+      console.log("userProfile", userProfile);
       userProfile.then(function (res) {
         let file_id = res.photos[0][0].file_id;
+        console.log("file_id", file_id);
         let file = bot.getFile(file_id);
+        console.log("file", file);
         file.then(function (result) {
           let file_path = result.file_path;
           let photo_url = `https://api.telegram.org/file/bot${token}/${file_path}`; // получаем фото юзера из телеграма
