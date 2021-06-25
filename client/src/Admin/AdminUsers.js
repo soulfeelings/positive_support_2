@@ -19,13 +19,13 @@ function AdminUsers() {
   }, []);
   useEffect(() => {
     axios
-      .get("http://localhost:4000/admin/getUsers")
+      .get("/admin/getUsers")
       .then((res) => dispatch(initAllUsersAC(res.data)));
   }, [dispatch]);
 
   function banUserHandler(userId, isBan) {
     axios
-      .post("http://localhost:4000/admin/banUser", { userId, isBan })
+      .post("/admin/banUser", { userId, isBan })
       .then((res) =>
         users.map((el) => (el._id === res.data._id ? res.data : el))
       )

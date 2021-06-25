@@ -19,7 +19,7 @@ function Circles(props) {
   }, [])
 
   useEffect(() => {
-    fetch("http://localhost:4000/circle")
+    fetch("/circle")
       .then((res) => res.json())
       .then((data) => dispatch({ type: "INIT_CIRCLES", payload: { data } }));
   }, [dispatch]);

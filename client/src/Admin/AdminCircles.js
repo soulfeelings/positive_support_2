@@ -13,7 +13,7 @@ function AdminCircles() {
 
   const deleteCircleHandler = (id) => {
     axios
-      .delete(`http://localhost:4000/circle/delete/${id}`)
+      .delete(`/circle/delete/${id}`)
       .then((res) => circles.filter((el) => el._id !== res.data._id))
       .then((res) => dispatch(deleteCircleAC(res)));
   };
@@ -24,7 +24,7 @@ function AdminCircles() {
     } else {
       const name = el.name;
       axios
-        .post("http://localhost:4000/circle/start", { name })
+        .post("/circle/start", { name })
         .then((res) => alert(res.data.message));
     }
   };

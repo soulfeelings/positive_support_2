@@ -130,13 +130,13 @@ async function giveMeLink(chatId) {
   // При нормальной ссылке будет все хорошо, но пока не кликабельна
   await bot.sendMessage(
     chatId,
-    `<a href="http://localhost:3000/profile/${res}">http://localhost:3000/profile/${res}</a>`,
+    `<a href="https://positive-support-2.herokuapp.com/profile/${res}">https://positive-support-2.herokuapp.com/profile/${res}</a>`,
     {
       parse_mode: 'HTML',
     },
   );
   //'[inline URL](http://localhost:3000/profile/'+res+'/)'
-  axios.post('http://localhost:4000/user/login', { chatId, secretId: res });
+  axios.post('/user/login', { chatId, secretId: res });
 }
 
 async function regUser({ msg, photo_url }) {
@@ -153,7 +153,7 @@ async function regUser({ msg, photo_url }) {
   await sendTimoutMessage(700, chatId, `Секунду, пытаюсь Вас зарегистрировать.`);
 
   axios
-    .post('http://localhost:4000/user/create', {
+    .post('/user/create', {
       name,
       firstName,
       lastName,

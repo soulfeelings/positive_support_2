@@ -6,7 +6,7 @@ export default function axiosAuth() {
     const token = localStorage.getItem("token");
     if (token) {
       axios
-        .get('http://localhost:4000/user/auth', {
+        .get('/user/auth', {
           headers: { Authorization: `Bearer ${token}` },
         })
         .then((res) => dispatch(setUserAC(res.data)))

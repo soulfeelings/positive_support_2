@@ -8,7 +8,7 @@ function ProfileCircle({ info, currentUser }) {
   const dispatch = useDispatch();
   const unfollowHandler = (id) => {
     axios
-      .post("http://localhost:4000/circle/unfollow", {
+      .post("/circle/unfollow", {
         currentUser,
         id,
       })

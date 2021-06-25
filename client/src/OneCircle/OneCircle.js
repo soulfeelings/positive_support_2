@@ -41,7 +41,7 @@ function OneCircle() {
 
   const followHandler = (path) => {
     axios
-      .post(`http://localhost:4000/circle/${path}`, {
+      .post(`/circle/${path}`, {
         currentUser,
         id: circleId.circleId,
       })

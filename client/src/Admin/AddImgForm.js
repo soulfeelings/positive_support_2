@@ -19,7 +19,7 @@ function AddImgForm({ circles }) {
     const circleName = document.querySelector("input[name=circleName]");
     const loadData = await new FormData(e.target);
     await loadData.append("name", circleName.value);
-    const res = await fetch(`http://localhost:4000/circle/add`, {
+    const res = await fetch(`/circle/add`, {
       method: "POST",
       body: loadData,
     });
@@ -34,7 +34,7 @@ function AddImgForm({ circles }) {
       <label for="name">Название</label>
       <input type="text" name="circleName" className="input" />
       <form
-        action="localhost:4000/circle/load"
+        action="/circle/load"
         method="POST"
         encType="multipart/form-data"
         onSubmit={loadFile}
