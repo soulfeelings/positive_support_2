@@ -99,7 +99,6 @@ function OneCircle() {
             // src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSTdeZ9vpR27khWeaQbiYd-1ARV-XtJ7JzWBw&usqp=CAU"
             // src={"/images/avatar.png"}
             src={currentUser.photo_url}
-
           />
           <div className={classes.container_users}>
             <div className={classes.sub_container_users}>

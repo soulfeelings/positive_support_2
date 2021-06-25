@@ -16,5 +16,8 @@
   "bugs": {
     "url": "https://github.com/soulfeelings/positive_support_2/issues"
   },
-  "homepage": "https://github.com/soulfeelings/positive_support_2#readme"
+  "homepage": "https://github.com/soulfeelings/positive_support_2#readme",
+  "engines": {
+    "node": "14.x"
+  }
 }
