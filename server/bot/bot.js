@@ -1,5 +1,4 @@
 import TelegramBot from 'node-telegram-bot-api';
-import axios from 'axios';
 import { commonkeyboard } from './keyboards.js';
 import {
   commontext,
@@ -149,8 +148,6 @@ async function giveMeLink(chatId) {
       parse_mode: 'HTML',
     }
   );
-  //'[inline URL](http://localhost:3000/profile/'+res+'/)'
-  //axios.post('/user/login', { chatId, secretId: res });
   saveUserSecretId(chatId, res);
 }
 
@@ -188,25 +185,25 @@ async function regUser({ msg, photo_url }) {
     `Секунду, пытаюсь Вас зарегистрировать.`
   );
 
-  axios
-    .post('/user/create', {
-      name,
-      firstName,
-      lastName,
-      chatId,
-      photo_url,
-    })
-    .then(async (res) => {
-      await sendTimoutMessage(2000, chatId, `${name} вы ${res.data.message}!`);
-      await sendTimoutMessage(2000, chatId, commontext, {
-        reply_markup: {
-          inline_keyboard: commonkeyboard,
-        },
-      });
-    })
-    .catch((err) => {
-      bot.sendMessage(chatId, 'Какая-то ошибка ' + err);
+  const userData = {
+    name,
+    firstName,
+    lastName,
+    chatId,
+    photo_url,
+  }
+  User.create(userData).then(async (user) => {
+    await sendTimoutMessage(2000, user.chatId, `${user.name} вы успешно зарегистрированы!`);
+    await sendTimoutMessage(2000, user.chatId, commontext, {
+      reply_markup: {
+        inline_keyboard: commonkeyboard,
+      },
     });
+  })
+  .catch((err) => {
+    bot.sendMessage(chatId, 'Какая-то ошибка ' + err);
+  });
+  
 }
 
 function sendTimoutMessage(timeout, chatId, msg, options = {}) {

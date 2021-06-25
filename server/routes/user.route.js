@@ -7,25 +7,25 @@ import User from '../models/user.model.js';
 
 const userRouter = Router();
 
-userRouter.post('/create', async (req, res) => {
-  try {
-    const newUser = await User.create(req.body);
-    await res.status(201).send({ message: 'успешно зарегистрированы' });
-  } catch (error) {
-    await res.status(501).send({ message: 'Ошибка регистрации' });
-  }
-});
+// userRouter.post('/create', async (req, res) => {
+//   try {
+//     const newUser = await User.create(req.body);
+//     await res.status(201).send({ message: 'успешно зарегистрированы' });
+//   } catch (error) {
+//     await res.status(501).send({ message: 'Ошибка регистрации' });
+//   }
+// });
 
-userRouter.post('/login', async (req, res) => {
-  try {
-    const user = await User.findOneAndUpdate(
-      { chatId: req.body.chatId },
-      { $set: { secretId: req.body.secretId } }
-    );
-  } catch (error) {
-    console.log(error);
-  }
-});
+// userRouter.post('/login', async (req, res) => {
+//   try {
+//     const user = await User.findOneAndUpdate(
+//       { chatId: req.body.chatId },
+//       { $set: { secretId: req.body.secretId } }
+//     );
+//   } catch (error) {
+//     console.log(error);
+//   }
+// });
 
 userRouter.get('/auth', authMiddleware, async (req, res) => {
   try {
