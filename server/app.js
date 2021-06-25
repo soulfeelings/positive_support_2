@@ -15,16 +15,14 @@ dbConnect().then(() => startSheduler());
 app.use(cors());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-app.use(express.static('public'))
 app.use(express.static(path.resolve('../client/build')))
 
 app.use('/circle', circlesRouter);
 app.use('/user', userRouter);
 app.use('/admin', adminRouter)
 
-app.get('/', (req, res) => {
-  // res.sendFile('./public/index.html');
-  res.send('Hello');
+app.get('*', (req, res) => {
+  res.sendFile(path.resolve('../client/build/index.html'));
 })
 
 
