@@ -1,12 +1,20 @@
 import TelegramBot from 'node-telegram-bot-api';
 import axios from 'axios';
 import { commonkeyboard } from './keyboards.js';
-import { commontext, errorcallback, letsgotosite, nocommand, starttext, youaddedtocommon } from './texts.js';
+import {
+  commontext,
+  errorcallback,
+  letsgotosite,
+  nocommand,
+  starttext,
+  youaddedtocommon,
+} from './texts.js';
 import Circle from '../models/circle.model.js';
 import User from '../models/user.model.js';
 import Apeal from '../models/apeal.model.js';
 import { krugovert } from './krugovert.js';
 import { linkgenerator } from '../middleware/linkgenerator.js';
+import saveUserSecretId from '../utils/saveUserSecretId.js';
 
 const token = process.env.BOT_TOKEN;
 const bot = new TelegramBot(token, {
@@ -19,14 +27,15 @@ bot.on('message', async (msg) => {
   const chatId = msg.chat.id;
   const { text } = msg;
 
-  if (await checkAppel(text, chatId)) return sendTimoutMessage(1000, chatId, "Ваша жалоба зарегистрирована")
+  if (await checkAppel(text, chatId))
+    return sendTimoutMessage(1000, chatId, 'Ваша жалоба зарегистрирована');
 
   switch (text) {
     case '/start':
-      bot.sendMessage(chatId, starttext, {parse_mode: 'MarkdownV2'});
+      bot.sendMessage(chatId, starttext, { parse_mode: 'MarkdownV2' });
       break;
     case '/reg':
-      if(await userExists(chatId)) {
+      if (await userExists(chatId)) {
         return bot.sendMessage(chatId, 'А вы уже с нами:)');
       }
       let userProfile = bot.getUserProfilePhotos(msg.from.id);
@@ -71,15 +80,15 @@ bot.on('callback_query', async (query) => {
 
 async function checkAppel(text, chatId) {
   const result = text.match(/#жалоба/gm);
-  
-  if(result) {
+
+  if (result) {
     try {
-      const user = await User.findOne({chatId}).exec();
-      const apeal = await Apeal.create({text, fromUser: user._id});
+      const user = await User.findOne({ chatId }).exec();
+      const apeal = await Apeal.create({ text, fromUser: user._id });
       return apeal;
     } catch (error) {
       console.log(error);
-      bot.sendMessage(chatId, "Ошибка на сервере");
+      bot.sendMessage(chatId, 'Ошибка на сервере');
     }
   }
 
@@ -88,32 +97,37 @@ async function checkAppel(text, chatId) {
 
 async function addUserToCommonGroup(id) {
   try {
-
     const user = await userExists(id);
-    if(!user) {
-      return bot.sendMessage(id, 'Вам похоже надо зарегистрироваться')
+    if (!user) {
+      return bot.sendMessage(id, 'Вам похоже надо зарегистрироваться');
     }
 
     const updatingCircle = await Circle.updateOne(
       { name: 'Общее' },
-      { $addToSet: { connected_users: user._id } },
+      { $addToSet: { connected_users: user._id } }
     ).exec();
-    
-    const circle = await Circle.findOne({name: 'Общее'});
-    if(!circle) {
-      return bot.sendMessage(id, 'Почему-то нет общего сообщества с именем "Общее". Нужна помощь администратора')
+
+    const circle = await Circle.findOne({ name: 'Общее' });
+    if (!circle) {
+      return bot.sendMessage(
+        id,
+        'Почему-то нет общего сообщества с именем "Общее". Нужна помощь администратора'
+      );
     }
 
     const updatingUser = await User.updateOne(
       { chatId: id },
-      { $addToSet: { connected_circles: circle._id } },
+      { $addToSet: { connected_circles: circle._id } }
     ).exec();
 
     if (updatingCircle.n && updatingUser.n) {
       bot.sendMessage(id, youaddedtocommon);
-      sendTimoutMessage(1000, id, 'Поздравляю. Скоро тебя ждет первое взаимодействие в нашем сервисе. Тебе придет чей-то никнейм. Поддержи это человека. И также твой никнейм придет кому-то и тебя обязательно поддержат. До связи!')
+      sendTimoutMessage(
+        1000,
+        id,
+        'Поздравляю. Скоро тебя ждет первое взаимодействие в нашем сервисе. Тебе придет чей-то никнейм. Поддержи это человека. И также твой никнейм придет кому-то и тебя обязательно поддержат. До связи!'
+      );
     }
-
   } catch (error) {
     bot.sendMessage(id, 'Какая-то ошибка с базой, типа ' + error.message);
     console.log(error);
@@ -122,7 +136,7 @@ async function addUserToCommonGroup(id) {
 
 // По хорошему сделать статическим методом модели User
 async function userExists(chatId) {
-  return await User.findOne({chatId}).exec()
+  return await User.findOne({ chatId }).exec();
 }
 
 async function giveMeLink(chatId) {
@@ -133,24 +147,46 @@ async function giveMeLink(chatId) {
     `<a href="https://positive-support-2.herokuapp.com/profile/${res}">https://positive-support-2.herokuapp.com/profile/${res}</a>`,
     {
       parse_mode: 'HTML',
-    },
+    }
   );
   //'[inline URL](http://localhost:3000/profile/'+res+'/)'
-  axios.post('/user/login', { chatId, secretId: res });
+  //axios.post('/user/login', { chatId, secretId: res });
+  saveUserSecretId(chatId, res);
 }
 
 async function regUser({ msg, photo_url }) {
-  const { id: chatId, username: name, first_name: firstName, last_name: lastName } = msg.chat;
+  const {
+    id: chatId,
+    username: name,
+    first_name: firstName,
+    last_name: lastName,
+  } = msg.chat;
 
   if (!name) {
-    await sendTimoutMessage(1000, chatId, `В твоем телеграм аккаунте не заполнен username`);
-    await sendTimoutMessage(2000, chatId, `Вся логика программы построена на этом`);
-    await sendTimoutMessage(500, chatId, `Заполни его, пожалуйста, в настройках и возвращайся`);
+    await sendTimoutMessage(
+      1000,
+      chatId,
+      `В твоем телеграм аккаунте не заполнен username`
+    );
+    await sendTimoutMessage(
+      2000,
+      chatId,
+      `Вся логика программы построена на этом`
+    );
+    await sendTimoutMessage(
+      500,
+      chatId,
+      `Заполни его, пожалуйста, в настройках и возвращайся`
+    );
     return;
   }
 
   await sendTimoutMessage(0, chatId, `Привет, ${name}!`);
-  await sendTimoutMessage(700, chatId, `Секунду, пытаюсь Вас зарегистрировать.`);
+  await sendTimoutMessage(
+    700,
+    chatId,
+    `Секунду, пытаюсь Вас зарегистрировать.`
+  );
 
   axios
     .post('/user/create', {
@@ -182,7 +218,10 @@ function sendTimoutMessage(timeout, chatId, msg, options = {}) {
 }
 
 export function followCircleBotMessage(currentUser, circle) {
-  bot.sendMessage(currentUser.chatId, `Вы вступили в круговорот ${circle.name}`);
+  bot.sendMessage(
+    currentUser.chatId,
+    `Вы вступили в круговорот ${circle.name}`
+  );
 }
 
 export function unfollowCircleBotMessage(currentUser, circle) {
@@ -190,4 +229,3 @@ export function unfollowCircleBotMessage(currentUser, circle) {
 }
 
 export default bot;
-
