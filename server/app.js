@@ -22,9 +22,10 @@ app.use('/circle', circlesRouter);
 app.use('/user', userRouter);
 app.use('/admin', adminRouter)
 
-// app.get('/', (req, res) => {
-//   res.sendFile('./public/index.html');
-// })
+app.get('/', (req, res) => {
+  // res.sendFile('./public/index.html');
+  res.send('Hello');
+})
 
 
 export default app;
