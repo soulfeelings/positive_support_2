@@ -1,8 +1,8 @@
 import User from "../models/user.model";
 
-export default function saveUserSecretId(chatId, secretId) {
+export default async function saveUserSecretId(chatId, secretId) {
   try {
-    const user = await User.findOneAndUpdate(
+    await User.findOneAndUpdate(
       { chatId: chatId },
       { $set: { secretId: secretId } }
     );
