@@ -1,4 +1,4 @@
-import User from "../models/user.model";
+import User from "../models/user.model.js";
 
 export default async function saveUserSecretId(chatId, secretId) {
   try {
