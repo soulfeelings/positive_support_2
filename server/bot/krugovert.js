@@ -9,13 +9,14 @@ export async function krugovert(bot, name) {
     .populate('connected_users')
     .then((circle) => {
       const { connected_users } = circle;
+      const shuffled_connected_users = arrayShuffle(connected_users);
+      
+      const last = checkForLeftOver(shuffled_connected_users);
 
-      const last = checkForLeftOver(connected_users);
+      const middle = shuffled_connected_users.length / 2;
 
-      const middle = connected_users.length / 2;
-
-      let firstArray = connected_users.slice(0, middle);
-      let secondArray = connected_users.slice(middle, connected_users.length);
+      let firstArray = shuffled_connected_users.slice(0, middle);
+      let secondArray = shuffled_connected_users.slice(middle, shuffled_connected_users.length);
 
       firstArray = arrayShuffle(firstArray);
       secondArray = arrayShuffle(secondArray);
